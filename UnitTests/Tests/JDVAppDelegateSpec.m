@@ -35,14 +35,14 @@ describe(@"JDVAppDelegate", ^{
         });
         
         it(@"sets its window to be the key window for the app", ^{
-            id mockWindow = [OCMockObject niceMockForClass:[UIWindow class]];
-            [[mockWindow expect] makeKeyAndVisible];
-            
-            id stubbedAppDelegate = [OCMockObject partialMockForObject:_appDelegate];
-            [[[stubbedAppDelegate stub] andReturn:mockWindow] window];
-            
-            [stubbedAppDelegate application:nil didFinishLaunchingWithOptions:nil];
-            [mockWindow verify];
+            [_appDelegate application:nil didFinishLaunchingWithOptions:nil];
+            expect(_appDelegate.window.keyWindow).to.beTruthy;
+        });
+        
+        it(@"sets its window to be the top window in the app", ^{
+            [_appDelegate application:nil didFinishLaunchingWithOptions:nil];
+            UIWindow *topWindow = [[[UIApplication sharedApplication] windows] lastObject];
+            expect(_appDelegate.window).to.equal(topWindow);
         });
     });
 });
