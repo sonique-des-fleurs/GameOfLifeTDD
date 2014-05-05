@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		047A3EF0460F456C8DC1FA68 /* JDVAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C26C5E54ED44C308B46EFAD /* JDVAppDelegate.m */; };
 		3EC8448C5E774CFABCF63DCA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2955FAC0B91146CC9DD49353 /* Images.xcassets */; };
+		CB512EEA1916FC5600407ACF /* JDVAppDelegateSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = CB512EE91916FC5600407ACF /* JDVAppDelegateSpec.m */; };
+		CB512EFB1917045700407ACF /* JDVGameOfLifeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB512EF91917045700407ACF /* JDVGameOfLifeViewController.m */; };
+		CB512EFC1917045700407ACF /* JDVGameOfLifeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB512EFA1917045700407ACF /* JDVGameOfLifeViewController.xib */; };
 		DC97984DFA57401F8426B430 /* libPods-unit_tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E02E1573DDB04AA989D4547B /* libPods-unit_tests.a */; };
 		DF428757192E4CC9A525738D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61D645EAF81A468A801AB1B8 /* Foundation.framework */; };
 		E1041D8A14E84A01AB7A3290 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 61E494F9261B4C4A8DEB205F /* main.m */; };
@@ -36,6 +39,10 @@
 		62EB4C464CA54BDA894F6213 /* UnitTests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
 		8574D673E5C94DADA9856D01 /* Pods-unit_tests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-unit_tests.xcconfig"; path = "Pods/Pods-unit_tests.xcconfig"; sourceTree = "<group>"; };
 		96E32659E5494137A12B69B4 /* GameOfLife-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "GameOfLife-Info.plist"; sourceTree = "<group>"; };
+		CB512EE91916FC5600407ACF /* JDVAppDelegateSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDVAppDelegateSpec.m; sourceTree = "<group>"; };
+		CB512EF81917045700407ACF /* JDVGameOfLifeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDVGameOfLifeViewController.h; sourceTree = "<group>"; };
+		CB512EF91917045700407ACF /* JDVGameOfLifeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDVGameOfLifeViewController.m; sourceTree = "<group>"; };
+		CB512EFA1917045700407ACF /* JDVGameOfLifeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JDVGameOfLifeViewController.xib; sourceTree = "<group>"; };
 		E02E1573DDB04AA989D4547B /* libPods-unit_tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-unit_tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E47A19AEA4B04A1394D3F4A0 /* UnitTests-Prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UnitTests-Prefix.pch"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -117,6 +124,7 @@
 		65C85D4F961A45AE8694E423 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				CB512EE91916FC5600407ACF /* JDVAppDelegateSpec.m */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -185,6 +193,9 @@
 		A671DBF52B944A51B2F677A4 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				CB512EF81917045700407ACF /* JDVGameOfLifeViewController.h */,
+				CB512EF91917045700407ACF /* JDVGameOfLifeViewController.m */,
+				CB512EFA1917045700407ACF /* JDVGameOfLifeViewController.xib */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -323,6 +334,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB512EFC1917045700407ACF /* JDVGameOfLifeViewController.xib in Resources */,
 				3EC8448C5E774CFABCF63DCA /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -383,6 +395,7 @@
 			files = (
 				047A3EF0460F456C8DC1FA68 /* JDVAppDelegate.m in Sources */,
 				E1041D8A14E84A01AB7A3290 /* main.m in Sources */,
+				CB512EFB1917045700407ACF /* JDVGameOfLifeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -390,6 +403,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB512EEA1916FC5600407ACF /* JDVAppDelegateSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
