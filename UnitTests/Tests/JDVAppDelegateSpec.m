@@ -36,7 +36,7 @@ describe(@"JDVAppDelegate", ^{
         
         it(@"sets its window to be the key window for the app", ^{
             [_appDelegate application:nil didFinishLaunchingWithOptions:nil];
-            expect(_appDelegate.window.keyWindow).to.beTruthy;
+            expect(_appDelegate.window.keyWindow).to.beTruthy();
         });
         
         it(@"sets its window to be the top window in the app", ^{

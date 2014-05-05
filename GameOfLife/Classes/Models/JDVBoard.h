@@ -8,4 +8,8 @@
 
 @interface JDVBoard : NSObject
 
+@property (strong, nonatomic) NSArray *cells;
+
+- (id)initWithCells:(NSArray *)cells;
+
 @end
