@@ -12,6 +12,7 @@
 		CB512EEA1916FC5600407ACF /* JDVAppDelegateSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = CB512EE91916FC5600407ACF /* JDVAppDelegateSpec.m */; };
 		CB512EFB1917045700407ACF /* JDVGameOfLifeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB512EF91917045700407ACF /* JDVGameOfLifeViewController.m */; };
 		CB512EFC1917045700407ACF /* JDVGameOfLifeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB512EFA1917045700407ACF /* JDVGameOfLifeViewController.xib */; };
+		CB512EFE191710E000407ACF /* JDVGameOfLifeViewControllerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = CB512EFD191710E000407ACF /* JDVGameOfLifeViewControllerSpec.m */; };
 		DC97984DFA57401F8426B430 /* libPods-unit_tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E02E1573DDB04AA989D4547B /* libPods-unit_tests.a */; };
 		DF428757192E4CC9A525738D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61D645EAF81A468A801AB1B8 /* Foundation.framework */; };
 		E1041D8A14E84A01AB7A3290 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 61E494F9261B4C4A8DEB205F /* main.m */; };
@@ -43,6 +44,7 @@
 		CB512EF81917045700407ACF /* JDVGameOfLifeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDVGameOfLifeViewController.h; sourceTree = "<group>"; };
 		CB512EF91917045700407ACF /* JDVGameOfLifeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDVGameOfLifeViewController.m; sourceTree = "<group>"; };
 		CB512EFA1917045700407ACF /* JDVGameOfLifeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JDVGameOfLifeViewController.xib; sourceTree = "<group>"; };
+		CB512EFD191710E000407ACF /* JDVGameOfLifeViewControllerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDVGameOfLifeViewControllerSpec.m; sourceTree = "<group>"; };
 		E02E1573DDB04AA989D4547B /* libPods-unit_tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-unit_tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E47A19AEA4B04A1394D3F4A0 /* UnitTests-Prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UnitTests-Prefix.pch"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -125,6 +127,7 @@
 			isa = PBXGroup;
 			children = (
 				CB512EE91916FC5600407ACF /* JDVAppDelegateSpec.m */,
+				CB512EFD191710E000407ACF /* JDVGameOfLifeViewControllerSpec.m */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -404,6 +407,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CB512EEA1916FC5600407ACF /* JDVAppDelegateSpec.m in Sources */,
+				CB512EFE191710E000407ACF /* JDVGameOfLifeViewControllerSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

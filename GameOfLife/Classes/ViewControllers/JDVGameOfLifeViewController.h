@@ -10,4 +10,10 @@
 
 @interface JDVGameOfLifeViewController : UIViewController
 
+@property (strong, nonatomic) IBOutlet UIButton *startButton;
+@property (strong, nonatomic) IBOutlet UIButton *clearButton;
+
+- (IBAction)toggleRun:(id)sender;
+- (IBAction)clear:(id)sender;
+
 @end
