@@ -21,9 +21,8 @@ describe(@"JDVBoard", ^{
     
     describe(@"when it is created with a collection of cells", ^{
         it(@"sets the value of its cells property to be equal to that collection", ^{
-            id mockCellA = [OCMockObject mockForClass:[JDVCell class]];
-            id mockCellB = [OCMockObject mockForClass:[JDVCell class]];
-            NSArray *initialCells = @[mockCellA, mockCellB];
+            id mockCell = [OCMockObject niceMockForClass:[JDVCell class]];
+            NSArray *initialCells = @[mockCell];
             JDVBoard *newBoard = [[JDVBoard alloc] initWithCells:initialCells];
             expect(newBoard.cells).to.equal(initialCells);
         });

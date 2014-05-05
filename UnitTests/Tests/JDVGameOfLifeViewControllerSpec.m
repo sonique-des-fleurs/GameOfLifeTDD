@@ -59,8 +59,20 @@ describe(@"JDVGameOfLifeViewController", ^{
     });
     
     describe(@"when its view has been loaded into memory", ^{
-        it(@"adds its board's cells to the board view", ^{
+        it(@"sets the frame for each of the board's cells", ^{
             id mockCell = [OCMockObject mockForClass:[JDVCell class]];
+            [[[mockCell expect] ignoringNonObjectArgs] setFrame:CGRectZero];
+            
+            id mockBoard = [OCMockObject mockForClass:[JDVBoard class]];
+            [[[mockBoard stub] andReturn:@[mockCell]] cells];
+            _gameOfLifeVC.board = mockBoard;
+            
+            [_gameOfLifeVC viewDidLoad];
+            [mockCell verify];
+        });
+        
+        it(@"adds the board's cells to the board view", ^{
+            id mockCell = [OCMockObject niceMockForClass:[JDVCell class]];
             id mockBoard = [OCMockObject mockForClass:[JDVBoard class]];
             [[[mockBoard stub] andReturn:@[mockCell]] cells];
             

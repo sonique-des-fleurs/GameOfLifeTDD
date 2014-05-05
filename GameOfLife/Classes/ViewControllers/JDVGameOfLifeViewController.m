@@ -30,6 +30,7 @@
     // Do any additional setup after loading the view from its nib.
     
     for (UIView *cell in self.board.cells) {
+        cell.frame = CGRectZero;
         [self.boardView addSubview:cell];
     }
 }

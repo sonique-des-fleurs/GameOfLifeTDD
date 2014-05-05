@@ -7,6 +7,7 @@
 //
 
 #import "JDVBoard.h"
+#import "JDVCell.h"
 
 @implementation JDVBoard
 
