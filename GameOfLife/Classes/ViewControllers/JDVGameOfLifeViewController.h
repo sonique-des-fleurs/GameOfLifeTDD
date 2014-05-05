@@ -12,6 +12,7 @@
 
 @property (strong, nonatomic) IBOutlet UIButton *startButton;
 @property (strong, nonatomic) IBOutlet UIButton *clearButton;
+@property (strong, nonatomic) IBOutlet UIView *boardView;
 
 - (IBAction)toggleRun:(id)sender;
 - (IBAction)clear:(id)sender;

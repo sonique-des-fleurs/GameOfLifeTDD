@@ -25,7 +25,9 @@ describe(@"JDVGameOfLifeViewController", ^{
         
         it(@"sets the action for the START button", ^{
             [_gameOfLifeVC view];
-            NSString *startButtonAction = [_gameOfLifeVC.startButton actionsForTarget:_gameOfLifeVC forControlEvent:UIControlEventTouchUpInside][0];
+            NSArray *startButtonActions = [_gameOfLifeVC.startButton actionsForTarget:_gameOfLifeVC
+                                                                      forControlEvent:UIControlEventTouchUpInside];
+            NSString *startButtonAction = startButtonActions[0];
             expect(startButtonAction).to.equal(@"toggleRun:");
         });
         
@@ -36,8 +38,15 @@ describe(@"JDVGameOfLifeViewController", ^{
         
         it(@"sets the action for the CLEAR button", ^{
             [_gameOfLifeVC view];
-            NSString *clearButtonAction = [_gameOfLifeVC.clearButton actionsForTarget:_gameOfLifeVC forControlEvent:UIControlEventTouchUpInside][0];
+            NSArray *clearButtonActions = [_gameOfLifeVC.clearButton actionsForTarget:_gameOfLifeVC
+                                                                      forControlEvent:UIControlEventTouchUpInside];
+            NSString *clearButtonAction = clearButtonActions[0];
             expect(clearButtonAction).to.equal(@"clear:");
+        });
+        
+        it(@"assigns a UIView to its boardView property", ^{
+            [_gameOfLifeVC view];
+            expect(_gameOfLifeVC.boardView).to.beInstanceOf([UIView class]);
         });
     });
     
