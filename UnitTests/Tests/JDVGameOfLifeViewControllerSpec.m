@@ -12,29 +12,31 @@ SpecBegin(JDVGameOfLifeViewController)
 
 describe(@"JDVGameOfLifeViewController", ^{
     context(@"when its view property is accessed", ^{
+        __block JDVGameOfLifeViewController *_gameOfLifeVC;
+        
+        beforeEach(^{
+            _gameOfLifeVC = [[JDVGameOfLifeViewController alloc] init];
+        });
+        
         it(@"assigns a UIButton to its startButton property", ^{
-            JDVGameOfLifeViewController *gameOfLifeVC = [[JDVGameOfLifeViewController alloc] init];
-            [gameOfLifeVC view];
-            expect(gameOfLifeVC.startButton).to.beInstanceOf([UIButton class]);
+            [_gameOfLifeVC view];
+            expect(_gameOfLifeVC.startButton).to.beInstanceOf([UIButton class]);
         });
         
         it(@"sets the action for the START button", ^{
-            JDVGameOfLifeViewController *gameOfLifeVC = [[JDVGameOfLifeViewController alloc] init];
-            [gameOfLifeVC view];
-            NSString *startButtonAction = [[gameOfLifeVC.startButton actionsForTarget:gameOfLifeVC forControlEvent:UIControlEventTouchUpInside] firstObject];
+            [_gameOfLifeVC view];
+            NSString *startButtonAction = [_gameOfLifeVC.startButton actionsForTarget:_gameOfLifeVC forControlEvent:UIControlEventTouchUpInside][0];
             expect(startButtonAction).to.equal(@"toggleRun:");
         });
         
         it(@"assigns a UIButton to its clearButton property", ^{
-            JDVGameOfLifeViewController *gameOfLifeVC = [[JDVGameOfLifeViewController alloc] init];
-            [gameOfLifeVC view];
-            expect(gameOfLifeVC.clearButton).to.beInstanceOf([UIButton class]);
+            [_gameOfLifeVC view];
+            expect(_gameOfLifeVC.clearButton).to.beInstanceOf([UIButton class]);
         });
         
         it(@"sets the action for the CLEAR button", ^{
-            JDVGameOfLifeViewController *gameOfLifeVC = [[JDVGameOfLifeViewController alloc] init];
-            [gameOfLifeVC view];
-            NSString *clearButtonAction = [[gameOfLifeVC.clearButton actionsForTarget:gameOfLifeVC forControlEvent:UIControlEventTouchUpInside] firstObject];
+            [_gameOfLifeVC view];
+            NSString *clearButtonAction = [_gameOfLifeVC.clearButton actionsForTarget:_gameOfLifeVC forControlEvent:UIControlEventTouchUpInside][0];
             expect(clearButtonAction).to.equal(@"clear:");
         });
     });
