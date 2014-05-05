@@ -7,6 +7,7 @@
 //
 
 #import "JDVGameOfLifeViewController.h"
+#import "JDVCell.h"
 
 @interface JDVGameOfLifeViewController ()
 
@@ -18,7 +19,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        _board = [[JDVBoard alloc] init];
     }
     return self;
 }
@@ -28,7 +29,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    self.board = [[JDVBoard alloc] init];
+    for (UIView *cell in self.board.cells) {
+        [self.boardView addSubview:cell];
+    }
 }
 
 - (void)didReceiveMemoryWarning

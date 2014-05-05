@@ -8,6 +8,7 @@
 
 #import "JDVGameOfLifeViewController.h"
 #import "JDVBoard.h"
+#import "JDVCell.h"
 
 SpecBegin(JDVGameOfLifeViewController)
 
@@ -16,6 +17,12 @@ describe(@"JDVGameOfLifeViewController", ^{
     
     beforeEach(^{
         _gameOfLifeVC = [[JDVGameOfLifeViewController alloc] init];
+    });
+    
+    describe(@"when it is created", ^{
+        it(@"assigns a JDVBoard to its board property", ^{
+            expect(_gameOfLifeVC.board).to.beInstanceOf([JDVBoard class]);
+        });
     });
     
     describe(@"when its view property is accessed", ^{
@@ -51,10 +58,20 @@ describe(@"JDVGameOfLifeViewController", ^{
         });
     });
     
-    describe(@"when its view has loaded into memory", ^{
-        it(@"assigns a JDVBoard to its board property", ^{
+    describe(@"when its view has been loaded into memory", ^{
+        it(@"adds its board's cells to the board view", ^{
+            id mockCell = [OCMockObject mockForClass:[JDVCell class]];
+            id mockBoard = [OCMockObject mockForClass:[JDVBoard class]];
+            [[[mockBoard stub] andReturn:@[mockCell]] cells];
+            
+            id mockBoardView = [OCMockObject mockForClass:[UIView class]];
+            [[mockBoardView expect] addSubview:mockCell];
+            
+            _gameOfLifeVC.board = mockBoard;
+            _gameOfLifeVC.boardView = mockBoardView;
+            
             [_gameOfLifeVC viewDidLoad];
-            expect(_gameOfLifeVC.board).to.beInstanceOf([JDVBoard class]);
+            [mockBoardView verify];
         });
     });
     

@@ -15,6 +15,7 @@
 		CB512EFE191710E000407ACF /* JDVGameOfLifeViewControllerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = CB512EFD191710E000407ACF /* JDVGameOfLifeViewControllerSpec.m */; };
 		CB758C0E191746E100397786 /* JDVBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = CB758C0D191746E100397786 /* JDVBoard.m */; };
 		CB758C1019174AF100397786 /* JDVBoardSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = CB758C0F19174AF100397786 /* JDVBoardSpec.m */; };
+		CB758C1819175F2300397786 /* JDVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB758C1719175F2300397786 /* JDVCell.m */; };
 		DC97984DFA57401F8426B430 /* libPods-unit_tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E02E1573DDB04AA989D4547B /* libPods-unit_tests.a */; };
 		DF428757192E4CC9A525738D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61D645EAF81A468A801AB1B8 /* Foundation.framework */; };
 		E1041D8A14E84A01AB7A3290 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 61E494F9261B4C4A8DEB205F /* main.m */; };
@@ -50,6 +51,8 @@
 		CB758C0C191746E100397786 /* JDVBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDVBoard.h; sourceTree = "<group>"; };
 		CB758C0D191746E100397786 /* JDVBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDVBoard.m; sourceTree = "<group>"; };
 		CB758C0F19174AF100397786 /* JDVBoardSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDVBoardSpec.m; sourceTree = "<group>"; };
+		CB758C1619175F2300397786 /* JDVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDVCell.h; sourceTree = "<group>"; };
+		CB758C1719175F2300397786 /* JDVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDVCell.m; sourceTree = "<group>"; };
 		E02E1573DDB04AA989D4547B /* libPods-unit_tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-unit_tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E47A19AEA4B04A1394D3F4A0 /* UnitTests-Prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UnitTests-Prefix.pch"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -104,6 +107,8 @@
 		194DC4865DA94A409E83BFF7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				CB758C1619175F2300397786 /* JDVCell.h */,
+				CB758C1719175F2300397786 /* JDVCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -407,6 +412,7 @@
 				047A3EF0460F456C8DC1FA68 /* JDVAppDelegate.m in Sources */,
 				CB758C0E191746E100397786 /* JDVBoard.m in Sources */,
 				E1041D8A14E84A01AB7A3290 /* main.m in Sources */,
+				CB758C1819175F2300397786 /* JDVCell.m in Sources */,
 				CB512EFB1917045700407ACF /* JDVGameOfLifeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
