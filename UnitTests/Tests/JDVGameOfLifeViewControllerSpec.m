@@ -7,17 +7,18 @@
 //
 
 #import "JDVGameOfLifeViewController.h"
+#import "JDVBoard.h"
 
 SpecBegin(JDVGameOfLifeViewController)
 
 describe(@"JDVGameOfLifeViewController", ^{
+    __block JDVGameOfLifeViewController *_gameOfLifeVC;
+    
+    beforeEach(^{
+        _gameOfLifeVC = [[JDVGameOfLifeViewController alloc] init];
+    });
+    
     describe(@"when its view property is accessed", ^{
-        __block JDVGameOfLifeViewController *_gameOfLifeVC;
-        
-        beforeEach(^{
-            _gameOfLifeVC = [[JDVGameOfLifeViewController alloc] init];
-        });
-        
         it(@"assigns a UIButton to its startButton property", ^{
             [_gameOfLifeVC view];
             expect(_gameOfLifeVC.startButton).to.beInstanceOf([UIButton class]);
@@ -47,6 +48,13 @@ describe(@"JDVGameOfLifeViewController", ^{
         it(@"assigns a UIView to its boardView property", ^{
             [_gameOfLifeVC view];
             expect(_gameOfLifeVC.boardView).to.beInstanceOf([UIView class]);
+        });
+    });
+    
+    describe(@"when its view has loaded into memory", ^{
+        it(@"assigns a JDVBoard to its board property", ^{
+            [_gameOfLifeVC viewDidLoad];
+            expect(_gameOfLifeVC.board).to.beInstanceOf([JDVBoard class]);
         });
     });
     
