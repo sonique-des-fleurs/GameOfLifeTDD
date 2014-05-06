@@ -21,8 +21,8 @@
     if (self) {
         _board = [[JDVBoard alloc] init];
         _lineWidth = 2;
-        _cellsPerSide = 24;
-        _sideLength = 728;
+        _numberOfCellsPerRow = 24;
+        _boardWidth = 728;
     }
     return self;
 }
@@ -31,8 +31,13 @@
 {
     [super viewDidLoad];
     
+    self.cellWidth = (self.boardWidth - ((self.numberOfCellsPerRow + 1) * self.lineWidth)) / self.numberOfCellsPerRow;
+    NSLog(@"cellWidth = %f", self.cellWidth);
+   
     for (JDVCell *cell in self.board.cells) {
-        cell.frame = CGRectMake(1, 1, 2, 2);
+        CGFloat cellOriginX = (cell.column * self.lineWidth) + ((cell.column - 1) * self.cellWidth);
+        CGFloat cellOriginY = (cell.row * self.lineWidth) + ((cell.row - 1) * self.cellWidth);
+        cell.frame = CGRectMake(cellOriginX, cellOriginY, self.cellWidth, self.cellWidth);
         [self.view addSubview:cell];
     }
 }
