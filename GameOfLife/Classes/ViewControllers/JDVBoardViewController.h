@@ -11,5 +11,8 @@
 @interface JDVBoardViewController : UIViewController
 
 @property (strong, nonatomic) JDVBoard *board;
+@property (assign, nonatomic) double lineWidth;
+@property (assign, nonatomic) NSInteger cellsPerSide;
+@property (assign, nonatomic) CGFloat sideLength;
 
 @end

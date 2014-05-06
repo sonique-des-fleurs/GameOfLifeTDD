@@ -8,4 +8,7 @@
 
 @interface JDVCell : UIButton
 
+@property (assign, nonatomic) NSInteger row;
+@property (assign, nonatomic) NSInteger column;
+
 @end

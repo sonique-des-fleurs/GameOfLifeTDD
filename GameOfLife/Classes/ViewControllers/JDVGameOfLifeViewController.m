@@ -27,7 +27,7 @@
 {
     [super viewDidLoad];
     
-    self.boardVC.view.frame = CGRectMake(20, 60, 728, 728);
+    self.boardVC.view.frame = CGRectMake(20, 60, self.boardVC.sideLength, self.boardVC.sideLength);
     self.boardVC.view.backgroundColor = [UIColor greenColor];
     [self.view addSubview:self.boardVC.view];
 }

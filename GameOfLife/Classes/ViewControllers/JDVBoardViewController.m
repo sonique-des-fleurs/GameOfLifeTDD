@@ -20,6 +20,9 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         _board = [[JDVBoard alloc] init];
+        _lineWidth = 2;
+        _cellsPerSide = 24;
+        _sideLength = 728;
     }
     return self;
 }
@@ -29,7 +32,7 @@
     [super viewDidLoad];
     
     for (JDVCell *cell in self.board.cells) {
-        cell.frame = CGRectZero;
+        cell.frame = CGRectMake(1, 1, 2, 2);
         [self.view addSubview:cell];
     }
 }

@@ -53,7 +53,7 @@ describe(@"JDVGameOfLifeViewController", ^{
         it(@"sets the frame for the boardVC's view", ^{
             id mockBoardView = [OCMockObject partialMockForObject:[[UIView alloc] init]];
             [[[mockBoardView expect] ignoringNonObjectArgs] setFrame:CGRectZero];
-            id mockBoardVC = [OCMockObject mockForClass:[JDVBoardViewController class]];
+            id mockBoardVC = [OCMockObject niceMockForClass:[JDVBoardViewController class]];
             [[[mockBoardVC stub] andReturn:mockBoardView] view];
             _gameOfLifeVC.boardVC = mockBoardVC;
             
@@ -63,7 +63,7 @@ describe(@"JDVGameOfLifeViewController", ^{
         
         it(@"adds the boardVC's view to the view hierarchy", ^{
             UIView *boardView = [[UIView alloc] init];
-            id mockBoardVC = [OCMockObject mockForClass:[JDVBoardViewController class]];
+            id mockBoardVC = [OCMockObject niceMockForClass:[JDVBoardViewController class]];
             [[[mockBoardVC stub] andReturn:boardView] view];
             _gameOfLifeVC.boardVC = mockBoardVC;
             
