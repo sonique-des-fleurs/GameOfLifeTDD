@@ -7,7 +7,6 @@
 //
 
 #import "JDVBoardViewController.h"
-#import "JDVBoard.h"
 #import "JDVCell.h"
 
 SpecBegin(JDVBoardViewController)
@@ -19,8 +18,8 @@ describe(@"JDVBoardViewController", ^{
     });
     
     describe(@"when it is created", ^{
-        it(@"assigns a JDVBoard to the board property", ^{
-            expect(_boardVC.board).to.beInstanceOf([JDVBoard class]);
+        it(@"sets the value of its cells property", ^{
+            expect(_boardVC.cells).notTo.beNil();
         });
         
         it(@"sets the value of the lineWidth property", ^{
@@ -64,15 +63,12 @@ describe(@"JDVBoardViewController", ^{
                     expect(_boardVC.cellWidth).to.equal(3.5);
                 });
                 
-                it(@"sets the frame for the top-left cell of the board", ^{
+                it(@"sets the frame for the top-left cell", ^{
                     id mockCell = [OCMockObject partialMockForObject:[[JDVCell alloc] init]];
                     [[[mockCell stub] andReturnValue:@1] row];
                     [[[mockCell stub] andReturnValue:@1] column];
                     [[mockCell expect] setFrame:CGRectMake(1, 1, 3.5, 3.5)];
-                    
-                    id mockBoard = [OCMockObject mockForClass:[JDVBoard class]];
-                    [[[mockBoard stub] andReturn:@[mockCell]] cells];
-                    _boardVC.board = mockBoard;
+                    _boardVC.cells = @[mockCell];
                     
                     [_boardVC view];
                     [mockCell verify];
@@ -83,10 +79,7 @@ describe(@"JDVBoardViewController", ^{
                     [[[mockCell stub] andReturnValue:@1] row];
                     [[[mockCell stub] andReturnValue:@2] column];
                     [[mockCell expect] setFrame:CGRectMake(5.5, 1, 3.5, 3.5)];
-                    
-                    id mockBoard = [OCMockObject mockForClass:[JDVBoard class]];
-                    [[[mockBoard stub] andReturn:@[mockCell]] cells];
-                    _boardVC.board = mockBoard;
+                    _boardVC.cells = @[mockCell];
                     
                     [_boardVC view];
                     [mockCell verify];
@@ -97,10 +90,7 @@ describe(@"JDVBoardViewController", ^{
                     [[[mockCell stub] andReturnValue:@2] row];
                     [[[mockCell stub] andReturnValue:@1] column];
                     [[mockCell expect] setFrame:CGRectMake(1, 5.5, 3.5, 3.5)];
-                    
-                    id mockBoard = [OCMockObject mockForClass:[JDVBoard class]];
-                    [[[mockBoard stub] andReturn:@[mockCell]] cells];
-                    _boardVC.board = mockBoard;
+                    _boardVC.cells = @[mockCell];
                     
                     [_boardVC view];
                     [mockCell verify];
@@ -117,15 +107,12 @@ describe(@"JDVBoardViewController", ^{
                     expect(_boardVC.cellWidth).to.equal(2);
                 });
                 
-                it(@"sets the frame for the top-left cell of the board", ^{
+                it(@"sets the frame for the top-left cell", ^{
                     id mockCell = [OCMockObject partialMockForObject:[[JDVCell alloc] init]];
                     [[[mockCell stub] andReturnValue:@1] row];
                     [[[mockCell stub] andReturnValue:@1] column];
                     [[mockCell expect] setFrame:CGRectMake(2, 2, 2, 2)];
-                    
-                    id mockBoard = [OCMockObject mockForClass:[JDVBoard class]];
-                    [[[mockBoard stub] andReturn:@[mockCell]] cells];
-                    _boardVC.board = mockBoard;
+                    _boardVC.cells = @[mockCell];
                     
                     [_boardVC view];
                     [mockCell verify];
@@ -136,10 +123,7 @@ describe(@"JDVBoardViewController", ^{
                     [[[mockCell stub] andReturnValue:@1] row];
                     [[[mockCell stub] andReturnValue:@2] column];
                     [[mockCell expect] setFrame:CGRectMake(6, 2, 2, 2)];
-                    
-                    id mockBoard = [OCMockObject mockForClass:[JDVBoard class]];
-                    [[[mockBoard stub] andReturn:@[mockCell]] cells];
-                    _boardVC.board = mockBoard;
+                    _boardVC.cells = @[mockCell];
                     
                     [_boardVC view];
                     [mockCell verify];
@@ -150,10 +134,7 @@ describe(@"JDVBoardViewController", ^{
                     [[[mockCell stub] andReturnValue:@2] row];
                     [[[mockCell stub] andReturnValue:@1] column];
                     [[mockCell expect] setFrame:CGRectMake(2, 6, 2, 2)];
-                    
-                    id mockBoard = [OCMockObject mockForClass:[JDVBoard class]];
-                    [[[mockBoard stub] andReturn:@[mockCell]] cells];
-                    _boardVC.board = mockBoard;
+                    _boardVC.cells = @[mockCell];
                     
                     [_boardVC view];
                     [mockCell verify];
@@ -161,11 +142,9 @@ describe(@"JDVBoardViewController", ^{
             });
         });
         
-        it(@"adds the board's cells to the view", ^{
+        it(@"adds the cells to the view", ^{
             JDVCell *cell = [[JDVCell alloc] init];
-            id mockBoard = [OCMockObject mockForClass:[JDVBoard class]];
-            [[[mockBoard stub] andReturn:@[cell]] cells];
-            _boardVC.board = mockBoard;
+            _boardVC.cells = @[cell];
             
             [_boardVC view];
             expect(_boardVC.view.subviews).to.contain(cell);

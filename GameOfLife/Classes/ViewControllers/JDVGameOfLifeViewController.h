@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 JDV. All rights reserved.
 //
 
-#import "JDVBoard.h"
 #import "JDVBoardViewController.h"
 
 @interface JDVGameOfLifeViewController : UIViewController

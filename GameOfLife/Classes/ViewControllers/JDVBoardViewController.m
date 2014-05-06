@@ -19,7 +19,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        _board = [[JDVBoard alloc] init];
+        _cells = @[];
         _boardColor = [UIColor greenColor];
         _boardWidth = 728;
         _lineWidth = 2;
@@ -35,7 +35,7 @@
     self.view.backgroundColor = self.boardColor;
     self.cellWidth = (self.boardWidth - ((self.numberOfCellsPerRow + 1) * self.lineWidth)) / self.numberOfCellsPerRow;
     
-    for (JDVCell *cell in self.board.cells) {
+    for (JDVCell *cell in self.cells) {
         CGFloat cellOriginX = (cell.column * self.lineWidth) + ((cell.column - 1) * self.cellWidth);
         CGFloat cellOriginY = (cell.row * self.lineWidth) + ((cell.row - 1) * self.cellWidth);
         cell.frame = CGRectMake(cellOriginX, cellOriginY, self.cellWidth, self.cellWidth);

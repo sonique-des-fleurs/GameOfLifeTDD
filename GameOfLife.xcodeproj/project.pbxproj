@@ -13,8 +13,6 @@
 		CB512EFB1917045700407ACF /* JDVGameOfLifeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB512EF91917045700407ACF /* JDVGameOfLifeViewController.m */; };
 		CB512EFC1917045700407ACF /* JDVGameOfLifeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB512EFA1917045700407ACF /* JDVGameOfLifeViewController.xib */; };
 		CB512EFE191710E000407ACF /* JDVGameOfLifeViewControllerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = CB512EFD191710E000407ACF /* JDVGameOfLifeViewControllerSpec.m */; };
-		CB758C0E191746E100397786 /* JDVBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = CB758C0D191746E100397786 /* JDVBoard.m */; };
-		CB758C1019174AF100397786 /* JDVBoardSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = CB758C0F19174AF100397786 /* JDVBoardSpec.m */; };
 		CB758C1819175F2300397786 /* JDVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB758C1719175F2300397786 /* JDVCell.m */; };
 		CBE21AF71918840C008459E0 /* JDVBoardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBE21AF61918840C008459E0 /* JDVBoardViewController.m */; };
 		CBE21AF919188627008459E0 /* JDVBoardViewControllerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = CBE21AF819188627008459E0 /* JDVBoardViewControllerSpec.m */; };
@@ -50,9 +48,6 @@
 		CB512EF91917045700407ACF /* JDVGameOfLifeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDVGameOfLifeViewController.m; sourceTree = "<group>"; };
 		CB512EFA1917045700407ACF /* JDVGameOfLifeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JDVGameOfLifeViewController.xib; sourceTree = "<group>"; };
 		CB512EFD191710E000407ACF /* JDVGameOfLifeViewControllerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDVGameOfLifeViewControllerSpec.m; sourceTree = "<group>"; };
-		CB758C0C191746E100397786 /* JDVBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDVBoard.h; sourceTree = "<group>"; };
-		CB758C0D191746E100397786 /* JDVBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDVBoard.m; sourceTree = "<group>"; };
-		CB758C0F19174AF100397786 /* JDVBoardSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDVBoardSpec.m; sourceTree = "<group>"; };
 		CB758C1619175F2300397786 /* JDVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDVCell.h; sourceTree = "<group>"; };
 		CB758C1719175F2300397786 /* JDVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDVCell.m; sourceTree = "<group>"; };
 		CBE21AF51918840C008459E0 /* JDVBoardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDVBoardViewController.h; sourceTree = "<group>"; };
@@ -94,8 +89,6 @@
 		0734973EBFE84882AED8AC25 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				CB758C0C191746E100397786 /* JDVBoard.h */,
-				CB758C0D191746E100397786 /* JDVBoard.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -146,7 +139,6 @@
 				CB512EE91916FC5600407ACF /* JDVAppDelegateSpec.m */,
 				CB512EFD191710E000407ACF /* JDVGameOfLifeViewControllerSpec.m */,
 				CBE21AF819188627008459E0 /* JDVBoardViewControllerSpec.m */,
-				CB758C0F19174AF100397786 /* JDVBoardSpec.m */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -418,7 +410,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				047A3EF0460F456C8DC1FA68 /* JDVAppDelegate.m in Sources */,
-				CB758C0E191746E100397786 /* JDVBoard.m in Sources */,
 				CBE21AF71918840C008459E0 /* JDVBoardViewController.m in Sources */,
 				E1041D8A14E84A01AB7A3290 /* main.m in Sources */,
 				CB758C1819175F2300397786 /* JDVCell.m in Sources */,
@@ -432,7 +423,6 @@
 			files = (
 				CB512EEA1916FC5600407ACF /* JDVAppDelegateSpec.m in Sources */,
 				CBE21AF919188627008459E0 /* JDVBoardViewControllerSpec.m in Sources */,
-				CB758C1019174AF100397786 /* JDVBoardSpec.m in Sources */,
 				CB512EFE191710E000407ACF /* JDVGameOfLifeViewControllerSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
