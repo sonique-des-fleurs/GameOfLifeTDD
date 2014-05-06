@@ -16,6 +16,7 @@
 		CB758C1819175F2300397786 /* JDVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB758C1719175F2300397786 /* JDVCell.m */; };
 		CBE21AF71918840C008459E0 /* JDVBoardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBE21AF61918840C008459E0 /* JDVBoardViewController.m */; };
 		CBE21AF919188627008459E0 /* JDVBoardViewControllerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = CBE21AF819188627008459E0 /* JDVBoardViewControllerSpec.m */; };
+		CBEC281D191999FB007D766A /* JDVCellSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = CBEC281C191999FB007D766A /* JDVCellSpec.m */; };
 		DC97984DFA57401F8426B430 /* libPods-unit_tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E02E1573DDB04AA989D4547B /* libPods-unit_tests.a */; };
 		DF428757192E4CC9A525738D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61D645EAF81A468A801AB1B8 /* Foundation.framework */; };
 		E1041D8A14E84A01AB7A3290 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 61E494F9261B4C4A8DEB205F /* main.m */; };
@@ -53,6 +54,7 @@
 		CBE21AF51918840C008459E0 /* JDVBoardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDVBoardViewController.h; sourceTree = "<group>"; };
 		CBE21AF61918840C008459E0 /* JDVBoardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDVBoardViewController.m; sourceTree = "<group>"; };
 		CBE21AF819188627008459E0 /* JDVBoardViewControllerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDVBoardViewControllerSpec.m; sourceTree = "<group>"; };
+		CBEC281C191999FB007D766A /* JDVCellSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDVCellSpec.m; sourceTree = "<group>"; };
 		E02E1573DDB04AA989D4547B /* libPods-unit_tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-unit_tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E47A19AEA4B04A1394D3F4A0 /* UnitTests-Prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UnitTests-Prefix.pch"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -139,6 +141,7 @@
 				CB512EE91916FC5600407ACF /* JDVAppDelegateSpec.m */,
 				CB512EFD191710E000407ACF /* JDVGameOfLifeViewControllerSpec.m */,
 				CBE21AF819188627008459E0 /* JDVBoardViewControllerSpec.m */,
+				CBEC281C191999FB007D766A /* JDVCellSpec.m */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -424,6 +427,7 @@
 				CB512EEA1916FC5600407ACF /* JDVAppDelegateSpec.m in Sources */,
 				CBE21AF919188627008459E0 /* JDVBoardViewControllerSpec.m in Sources */,
 				CB512EFE191710E000407ACF /* JDVGameOfLifeViewControllerSpec.m in Sources */,
+				CBEC281D191999FB007D766A /* JDVCellSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

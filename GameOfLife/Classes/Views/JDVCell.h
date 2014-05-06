@@ -11,4 +11,6 @@
 @property (assign, nonatomic) NSInteger row;
 @property (assign, nonatomic) NSInteger column;
 
+- (id)initWithRow:(NSInteger)row column:(NSInteger)column;
+
 @end

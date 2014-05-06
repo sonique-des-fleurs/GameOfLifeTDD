@@ -10,13 +10,19 @@
 
 @implementation JDVCell
 
-- (id)initWithFrame:(CGRect)frame
+- (id)initWithRow:(NSInteger)row column:(NSInteger)column
 {
-    self = [super initWithFrame:frame];
+    self = [super init];
     if (self) {
-        // Initialization code
+        _row = row;
+        _column = column;
     }
     return self;
+}
+
+- (id)init
+{
+    return [self initWithRow:1 column:1];
 }
 
 @end
