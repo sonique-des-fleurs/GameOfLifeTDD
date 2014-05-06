@@ -15,17 +15,22 @@
 
 @implementation JDVBoardViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithCellsPerRow:(NSInteger)numberOfCellsPerRow
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super init];
     if (self) {
-        _cells = @[];
+        _numberOfCellsPerRow = numberOfCellsPerRow;
         _boardColor = [UIColor greenColor];
         _boardWidth = 728;
         _lineWidth = 2;
-        _numberOfCellsPerRow = 24;
+        [self initializeCells];
     }
     return self;
+}
+
+- (id)init
+{
+    return [self initWithCellsPerRow:24];
 }
 
 - (void)viewDidLoad
@@ -39,8 +44,22 @@
         CGFloat cellOriginX = (cell.column * self.lineWidth) + ((cell.column - 1) * self.cellWidth);
         CGFloat cellOriginY = (cell.row * self.lineWidth) + ((cell.row - 1) * self.cellWidth);
         cell.frame = CGRectMake(cellOriginX, cellOriginY, self.cellWidth, self.cellWidth);
+        cell.backgroundColor = [UIColor orangeColor];
         [self.view addSubview:cell];
     }
+}
+
+#pragma mark - private methods
+
+- (void)initializeCells
+{
+    NSMutableArray *cells = [NSMutableArray array];
+    NSInteger numberOfCells = (self.numberOfCellsPerRow * self.numberOfCellsPerRow);
+    for (int i = 0; i < numberOfCells; i++) {
+        JDVCell *cell = [[JDVCell alloc] init];
+        [cells addObject:cell];
+    };
+    _cells = cells;
 }
 
 @end
