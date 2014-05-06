@@ -6,9 +6,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="JDVGameOfLifeViewController">
             <connections>
-                <outlet property="boardView" destination="vgG-z6-oCM" id="lwp-Xx-iRe"/>
                 <outlet property="clearButton" destination="9Tf-HB-thM" id="5Sg-nx-fhV"/>
-                <outlet property="startButton" destination="K1j-Y1-ROq" id="cAs-iR-8Wx"/>
+                <outlet property="runButton" destination="K1j-Y1-ROq" id="fXS-6z-dq6"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="LdQ-ww-Z3Z"/>
             </connections>
         </placeholder>
@@ -17,7 +16,7 @@
             <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K1j-Y1-ROq">
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K1j-Y1-ROq" userLabel="Button - RUN">
                     <rect key="frame" x="624" y="904" width="47" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <state key="normal" title="START">
@@ -37,11 +36,6 @@
                         <action selector="clear:" destination="-1" eventType="touchUpInside" id="2Q6-MX-8vK"/>
                     </connections>
                 </button>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vgG-z6-oCM" userLabel="BoardView">
-                    <rect key="frame" x="20" y="60" width="728" height="728"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>

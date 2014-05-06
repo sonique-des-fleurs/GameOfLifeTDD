@@ -7,13 +7,13 @@
 //
 
 #import "JDVBoard.h"
+#import "JDVBoardViewController.h"
 
 @interface JDVGameOfLifeViewController : UIViewController
 
-@property (strong, nonatomic) IBOutlet UIButton *startButton;
+@property (strong, nonatomic) IBOutlet UIButton *runButton;
 @property (strong, nonatomic) IBOutlet UIButton *clearButton;
-@property (strong, nonatomic) IBOutlet UIView *boardView;
-@property (strong, nonatomic) JDVBoard *board;
+@property (strong, nonatomic) JDVBoardViewController *boardVC;
 
 - (IBAction)toggleRun:(id)sender;
 - (IBAction)clear:(id)sender;

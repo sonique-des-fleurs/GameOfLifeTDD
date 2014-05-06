@@ -7,7 +7,6 @@
 //
 
 #import "JDVGameOfLifeViewController.h"
-#import "JDVCell.h"
 
 @interface JDVGameOfLifeViewController ()
 
@@ -19,7 +18,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        _board = [[JDVBoard alloc] init];
+        _boardVC = [[JDVBoardViewController alloc] init];
     }
     return self;
 }
@@ -27,18 +26,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
     
-    for (UIView *cell in self.board.cells) {
-        cell.frame = CGRectZero;
-        [self.boardView addSubview:cell];
-    }
+    self.boardVC.view.frame = CGRectMake(20, 60, 728, 728);
+    self.boardVC.view.backgroundColor = [UIColor greenColor];
+    [self.view addSubview:self.boardVC.view];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (IBAction)toggleRun:(id)sender {

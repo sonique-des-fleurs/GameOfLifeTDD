@@ -7,8 +7,6 @@
 //
 
 #import "JDVGameOfLifeViewController.h"
-#import "JDVBoard.h"
-#import "JDVCell.h"
 
 SpecBegin(JDVGameOfLifeViewController)
 
@@ -20,26 +18,26 @@ describe(@"JDVGameOfLifeViewController", ^{
     });
     
     describe(@"when it is created", ^{
-        it(@"assigns a JDVBoard to its board property", ^{
-            expect(_gameOfLifeVC.board).to.beInstanceOf([JDVBoard class]);
+        it(@"assigns a JDVBoardViewController to the boardVC property", ^{
+            expect(_gameOfLifeVC.boardVC).to.beInstanceOf([JDVBoardViewController class]);
         });
     });
     
     describe(@"when its view property is accessed", ^{
-        it(@"assigns a UIButton to its startButton property", ^{
+        it(@"assigns a UIButton to the startButton property", ^{
             [_gameOfLifeVC view];
-            expect(_gameOfLifeVC.startButton).to.beInstanceOf([UIButton class]);
+            expect(_gameOfLifeVC.runButton).to.beInstanceOf([UIButton class]);
         });
         
         it(@"sets the action for the START button", ^{
             [_gameOfLifeVC view];
-            NSArray *startButtonActions = [_gameOfLifeVC.startButton actionsForTarget:_gameOfLifeVC
-                                                                      forControlEvent:UIControlEventTouchUpInside];
+            NSArray *startButtonActions = [_gameOfLifeVC.runButton actionsForTarget:_gameOfLifeVC
+                                                                    forControlEvent:UIControlEventTouchUpInside];
             NSString *startButtonAction = startButtonActions[0];
             expect(startButtonAction).to.equal(@"toggleRun:");
         });
         
-        it(@"assigns a UIButton to its clearButton property", ^{
+        it(@"assigns a UIButton to the clearButton property", ^{
             [_gameOfLifeVC view];
             expect(_gameOfLifeVC.clearButton).to.beInstanceOf([UIButton class]);
         });
@@ -52,38 +50,25 @@ describe(@"JDVGameOfLifeViewController", ^{
             expect(clearButtonAction).to.equal(@"clear:");
         });
         
-        it(@"assigns a UIView to its boardView property", ^{
+        it(@"sets the frame for the boardVC's view", ^{
+            id mockBoardView = [OCMockObject partialMockForObject:[[UIView alloc] init]];
+            [[[mockBoardView expect] ignoringNonObjectArgs] setFrame:CGRectZero];
+            id mockBoardVC = [OCMockObject mockForClass:[JDVBoardViewController class]];
+            [[[mockBoardVC stub] andReturn:mockBoardView] view];
+            _gameOfLifeVC.boardVC = mockBoardVC;
+            
             [_gameOfLifeVC view];
-            expect(_gameOfLifeVC.boardView).to.beInstanceOf([UIView class]);
-        });
-    });
-    
-    describe(@"when its view has been loaded into memory", ^{
-        it(@"sets the frame for each of the board's cells", ^{
-            id mockCell = [OCMockObject mockForClass:[JDVCell class]];
-            [[[mockCell expect] ignoringNonObjectArgs] setFrame:CGRectZero];
-            
-            id mockBoard = [OCMockObject mockForClass:[JDVBoard class]];
-            [[[mockBoard stub] andReturn:@[mockCell]] cells];
-            _gameOfLifeVC.board = mockBoard;
-            
-            [_gameOfLifeVC viewDidLoad];
-            [mockCell verify];
+            [mockBoardView verify];
         });
         
-        it(@"adds the board's cells to the board view", ^{
-            id mockCell = [OCMockObject niceMockForClass:[JDVCell class]];
-            id mockBoard = [OCMockObject mockForClass:[JDVBoard class]];
-            [[[mockBoard stub] andReturn:@[mockCell]] cells];
+        it(@"adds the boardVC's view to the view hierarchy", ^{
+            UIView *boardView = [[UIView alloc] init];
+            id mockBoardVC = [OCMockObject mockForClass:[JDVBoardViewController class]];
+            [[[mockBoardVC stub] andReturn:boardView] view];
+            _gameOfLifeVC.boardVC = mockBoardVC;
             
-            id mockBoardView = [OCMockObject mockForClass:[UIView class]];
-            [[mockBoardView expect] addSubview:mockCell];
-            
-            _gameOfLifeVC.board = mockBoard;
-            _gameOfLifeVC.boardView = mockBoardView;
-            
-            [_gameOfLifeVC viewDidLoad];
-            [mockBoardView verify];
+            [_gameOfLifeVC view];
+            expect(_gameOfLifeVC.view.subviews).to.contain(boardView);
         });
     });
     
@@ -110,8 +95,8 @@ describe(@"JDVGameOfLifeViewController", ^{
     });
     
     xcontext(@"the game is running", ^{
-        describe(@"when the user taps the START (PAUSE) button", ^{
-            it(@"changes the START button to read 'START'", ^{
+        describe(@"when the user taps the PAUSE button", ^{
+            it(@"changes the button to read 'START'", ^{
                 
             });
             

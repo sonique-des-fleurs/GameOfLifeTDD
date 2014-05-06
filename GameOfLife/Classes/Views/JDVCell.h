@@ -6,8 +6,6 @@
 //  Copyright (c) 2014 JDV. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
 @interface JDVCell : UIButton
 
 @end
