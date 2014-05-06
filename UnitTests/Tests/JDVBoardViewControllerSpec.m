@@ -34,9 +34,20 @@ describe(@"JDVBoardViewController", ^{
         it(@"sets the value of the boardWidth property", ^{
             expect(_boardVC.boardWidth).notTo.equal(0);
         });
+        
+        it(@"sets the value of the board color property", ^{
+            expect(_boardVC.boardColor).notTo.beNil();
+        });
     });
     
     describe(@"when its view property is accessed", ^{
+        it(@"assigns the board color to the background color of the view", ^{
+            _boardVC.boardColor = [UIColor orangeColor];
+            
+            [_boardVC view];
+            expect(_boardVC.view.backgroundColor).to.equal([UIColor orangeColor]);
+        });
+        
         context(@"board with width 10.0", ^{
             beforeEach(^{
                 _boardVC.boardWidth = 10;
@@ -159,7 +170,6 @@ describe(@"JDVBoardViewController", ^{
             [_boardVC view];
             expect(_boardVC.view.subviews).to.contain(cell);
         });
-
     });
 });
 
