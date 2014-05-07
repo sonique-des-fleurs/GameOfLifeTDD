@@ -36,6 +36,66 @@ describe(@"JDVCell", ^{
             expect(_cell.boardLocation).notTo.beNil();
         });
     });
+    
+    describe(@"when it sets the next state", ^{
+        context(@"living cell", ^{
+            context(@"no living neighbors", ^{
+                it(@"will be dead", ^{
+                    
+                });
+            });
+            
+            context(@"1 living neighbor", ^{
+                it(@"will be dead", ^{
+                    
+                });
+            });
+            
+            context(@"2 living neighbors", ^{
+                it(@"will be alive", ^{
+                    
+                });
+            });
+            
+            context(@"3 living neighbors", ^{
+                it(@"will be alive", ^{
+                    
+                });
+            });
+            
+            context(@"4 living neighbors", ^{
+                it(@"will be dead", ^{
+                    
+                });
+            });
+        });
+        
+        context(@"dead cell", ^{
+            context(@"no living neighbors", ^{
+                it(@"will be dead", ^{
+                    
+                });
+            });
+            
+            context(@"2 living neighbors", ^{
+                it(@"will be dead", ^{
+                    
+                });
+            });
+            
+            context(@"3 living neighbors", ^{
+                it(@"will be alive", ^{
+                    
+                });
+            });
+            
+            context(@"4 living neighbors", ^{
+                it(@"will be dead", ^{
+                    
+                });
+            });
+        });
+    });
 });
 
 SpecEnd

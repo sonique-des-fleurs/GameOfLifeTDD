@@ -186,7 +186,15 @@ describe(@"JDVGameOfLifeViewController", ^{
     });
     
     describe(@"when the game timer fires", ^{
-        
+        it(@"tells the board view controller to update", ^{
+            JDVGameOfLifeViewController *gameOfLifeVC = [[JDVGameOfLifeViewController alloc] init];
+            id mockBoardVC = [OCMockObject mockForClass:[JDVBoardViewController class]];
+            [[mockBoardVC expect] update];
+            gameOfLifeVC.boardVC = mockBoardVC;
+            
+            [gameOfLifeVC timerDidFire:nil];
+            [mockBoardVC verify];
+        });
     });
 });
 

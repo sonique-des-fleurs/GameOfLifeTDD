@@ -217,6 +217,18 @@ describe(@"JDVBoardViewController", ^{
     describe(@"when it resets the cells", ^{
         
     });
+    
+    describe(@"when it updates", ^{
+        it(@"sets the next state for each cell", ^{
+            JDVBoardViewController *boardVC = [[JDVBoardViewController alloc] init];
+            id mockCell = [OCMockObject mockForClass:[JDVCell class]];
+            [[mockCell expect] setNextState];
+            boardVC.cells = @[mockCell];
+            
+            [boardVC update];
+            [mockCell verify];
+        });
+    });
 });
 
 SpecEnd

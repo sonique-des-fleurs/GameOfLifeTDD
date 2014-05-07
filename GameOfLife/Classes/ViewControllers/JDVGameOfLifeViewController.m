@@ -51,7 +51,7 @@
     self.gameIsRunning = TRUE;
     [self.runButton setTitle:@"STOP" forState:UIControlStateNormal];
     self.clearButton.enabled = FALSE;
-    self.gameTimer = [NSTimer timerWithTimeInterval:1 target:self selector:@selector(temp:) userInfo:nil repeats:YES];
+    self.gameTimer = [NSTimer timerWithTimeInterval:1 target:self selector:@selector(timerDidFire:) userInfo:nil repeats:YES];
     [[NSRunLoop currentRunLoop] addTimer:self.gameTimer forMode:NSDefaultRunLoopMode];
 }
 
@@ -68,11 +68,9 @@
     [self.boardVC resetCells];
 }
 
-#pragma mark - private methods
-
-- (void)temp:(id)sender
+- (void)timerDidFire:(NSTimer *)timer
 {
-    
+    [self.boardVC update];
 }
 
 @end

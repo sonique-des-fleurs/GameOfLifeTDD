@@ -27,4 +27,9 @@ NSString *const JDVCellColumn = @"column";
     return [self initWithBoardLocation:@{JDVCellRow: @0, JDVCellColumn:@0}];
 }
 
+- (void)setNextState
+{
+    //
+}
+
 @end

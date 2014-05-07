@@ -51,9 +51,16 @@
     }
 }
 
+- (void)update
+{
+    for (JDVCell *cell in self.cells) {
+        [cell setNextState];
+    }
+}
+
 - (void)resetCells
 {
-    
+    //
 }
 
 #pragma mark - private methods

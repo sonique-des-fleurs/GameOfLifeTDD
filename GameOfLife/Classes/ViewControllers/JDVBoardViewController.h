@@ -17,5 +17,6 @@
 
 - (id)initWithCellsPerRow:(NSInteger)numberOfCellsPerRow;
 - (void)resetCells;
+- (void)update;
 
 @end

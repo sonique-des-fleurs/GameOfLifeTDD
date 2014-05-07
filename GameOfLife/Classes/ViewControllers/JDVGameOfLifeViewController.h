@@ -20,5 +20,6 @@
 - (IBAction)clear:(id)sender;
 - (void)startGame;
 - (void)stopGame;
+- (void)timerDidFire:(NSTimer *)timer;
 
 @end
