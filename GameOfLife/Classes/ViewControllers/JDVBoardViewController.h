@@ -16,5 +16,6 @@
 @property (assign, nonatomic) CGFloat cellWidth;
 
 - (id)initWithCellsPerRow:(NSInteger)numberOfCellsPerRow;
+- (void)resetCells;
 
 @end

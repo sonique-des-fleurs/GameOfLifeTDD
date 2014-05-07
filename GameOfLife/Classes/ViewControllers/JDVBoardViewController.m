@@ -51,6 +51,11 @@
     }
 }
 
+- (void)resetCells
+{
+    
+}
+
 #pragma mark - private methods
 
 - (void)initializeCells

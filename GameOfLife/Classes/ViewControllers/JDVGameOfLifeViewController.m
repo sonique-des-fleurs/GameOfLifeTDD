@@ -19,6 +19,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         _boardVC = [[JDVBoardViewController alloc] init];
+        _gameIsRunning = FALSE;
     }
     return self;
 }
@@ -36,10 +37,42 @@
     [super didReceiveMemoryWarning];
 }
 
-- (IBAction)toggleRun:(id)sender {
+- (IBAction)toggleRun:(id)sender
+{
+    if (self.gameIsRunning) {
+        [self stopGame];
+    } else {
+        [self startGame];
+    }
 }
 
-- (IBAction)clear:(id)sender {
+- (void)startGame
+{
+    self.gameIsRunning = TRUE;
+    [self.runButton setTitle:@"STOP" forState:UIControlStateNormal];
+    self.clearButton.enabled = FALSE;
+    self.gameTimer = [NSTimer timerWithTimeInterval:1 target:self selector:@selector(temp:) userInfo:nil repeats:YES];
+    [[NSRunLoop currentRunLoop] addTimer:self.gameTimer forMode:NSDefaultRunLoopMode];
+}
+
+- (void)stopGame
+{
+    self.gameIsRunning = FALSE;
+    [self.runButton setTitle:@"START" forState:UIControlStateNormal];
+    self.clearButton.enabled = TRUE;
+    [self.gameTimer invalidate];
+}
+
+- (IBAction)clear:(id)sender
+{
+    [self.boardVC resetCells];
+}
+
+#pragma mark - private methods
+
+- (void)temp:(id)sender
+{
+    
 }
 
 @end

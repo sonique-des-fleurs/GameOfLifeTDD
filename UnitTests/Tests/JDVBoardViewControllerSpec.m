@@ -11,10 +11,10 @@
 
 SpecBegin(JDVBoardViewController)
 describe(@"JDVBoardViewController", ^{
-    __block JDVBoardViewController *_boardVC;
-    __block NSMutableArray *_allCellLocations;
-    
     describe(@"when it is created with 1 cell per row", ^{
+        __block JDVBoardViewController *_boardVC;
+        __block NSMutableArray *_allCellLocations;
+
         beforeEach(^{
             _boardVC = [[JDVBoardViewController alloc] initWithCellsPerRow:1];
         });
@@ -37,6 +37,9 @@ describe(@"JDVBoardViewController", ^{
     });
     
     describe(@"when it is created with 2 cells per row", ^{
+        __block JDVBoardViewController *_boardVC;
+        __block NSMutableArray *_allCellLocations;
+
         beforeEach(^{
             _boardVC = [[JDVBoardViewController alloc] initWithCellsPerRow:2];
             
@@ -72,6 +75,8 @@ describe(@"JDVBoardViewController", ^{
     });
     
     describe(@"when it is created", ^{
+        __block JDVBoardViewController *_boardVC;
+
         beforeEach(^{
             _boardVC = [[JDVBoardViewController alloc] init];
         });
@@ -95,112 +100,122 @@ describe(@"JDVBoardViewController", ^{
         it(@"sets the value of the board color property", ^{
             expect(_boardVC.boardColor).notTo.beNil();
         });
+    });
+    
+    describe(@"when its view property is accessed", ^{
+        __block JDVBoardViewController *_boardVC;
+
+        beforeEach(^{
+            _boardVC = [[JDVBoardViewController alloc] init];
+        });
         
-        describe(@"when its view property is accessed", ^{
-            it(@"assigns the board color to the background color of the view", ^{
-                _boardVC.boardColor = [UIColor orangeColor];
-                
-                [_boardVC view];
-                expect(_boardVC.view.backgroundColor).to.equal([UIColor orangeColor]);
+        it(@"assigns the board color to the background color of the view", ^{
+            _boardVC.boardColor = [UIColor orangeColor];
+            
+            [_boardVC view];
+            expect(_boardVC.view.backgroundColor).to.equal([UIColor orangeColor]);
+        });
+        
+        context(@"board with width 10.0", ^{
+            beforeEach(^{
+                _boardVC.boardWidth = 10;
+                _boardVC.numberOfCellsPerRow = 2;
             });
             
-            context(@"board with width 10.0", ^{
+            context(@"board with lineWidth 1.0", ^{
                 beforeEach(^{
-                    _boardVC.boardWidth = 10;
-                    _boardVC.numberOfCellsPerRow = 2;
+                    _boardVC.lineWidth = 1;
                 });
                 
-                context(@"board with lineWidth 1.0", ^{
-                    beforeEach(^{
-                        _boardVC.lineWidth = 1;
-                    });
-                    
-                    it(@"calculates and sets the value of the cellWidth property", ^{
-                        [_boardVC view];
-                        expect(_boardVC.cellWidth).to.equal(3.5);
-                    });
-                    
-                    it(@"sets the frame for the top-left cell", ^{
-                        id mockCell = [OCMockObject partialMockForObject:[[JDVCell alloc] init]];
-                        [[[mockCell stub] andReturn:@{JDVCellRow:@1, JDVCellColumn:@1}] boardLocation];
-                        [[mockCell expect] setFrame:CGRectMake(1, 1, 3.5, 3.5)];
-                        _boardVC.cells = @[mockCell];
-                        
-                        [_boardVC view];
-                        [mockCell verify];
-                    });
-                    
-                    it(@"sets the frame for the top-right cell", ^{
-                        id mockCell = [OCMockObject partialMockForObject:[[JDVCell alloc] init]];
-                        [[[mockCell stub] andReturn:@{JDVCellRow:@1, JDVCellColumn:@2}] boardLocation];
-                        [[mockCell expect] setFrame:CGRectMake(5.5, 1, 3.5, 3.5)];
-                        _boardVC.cells = @[mockCell];
-                        
-                        [_boardVC view];
-                        [mockCell verify];
-                    });
-                    
-                    it(@"sets the frame for the bottom-left cell", ^{
-                        id mockCell = [OCMockObject partialMockForObject:[[JDVCell alloc] init]];
-                        [[[mockCell stub] andReturn:@{JDVCellRow:@2, JDVCellColumn:@1}] boardLocation];
-                        [[mockCell expect] setFrame:CGRectMake(1, 5.5, 3.5, 3.5)];
-                        _boardVC.cells = @[mockCell];
-                        
-                        [_boardVC view];
-                        [mockCell verify];
-                    });
+                it(@"calculates and sets the value of the cellWidth property", ^{
+                    [_boardVC view];
+                    expect(_boardVC.cellWidth).to.equal(3.5);
                 });
                 
-                context(@"board with lineWidth 2.0", ^{
-                    beforeEach(^{
-                        _boardVC.lineWidth = 2;
-                    });
+                it(@"sets the frame for the top-left cell", ^{
+                    id mockCell = [OCMockObject partialMockForObject:[[JDVCell alloc] init]];
+                    [[[mockCell stub] andReturn:@{JDVCellRow:@1, JDVCellColumn:@1}] boardLocation];
+                    [[mockCell expect] setFrame:CGRectMake(1, 1, 3.5, 3.5)];
+                    _boardVC.cells = @[mockCell];
                     
-                    it(@"calculates and sets the value of the cellWidth property", ^{
-                        [_boardVC view];
-                        expect(_boardVC.cellWidth).to.equal(2);
-                    });
+                    [_boardVC view];
+                    [mockCell verify];
+                });
+                
+                it(@"sets the frame for the top-right cell", ^{
+                    id mockCell = [OCMockObject partialMockForObject:[[JDVCell alloc] init]];
+                    [[[mockCell stub] andReturn:@{JDVCellRow:@1, JDVCellColumn:@2}] boardLocation];
+                    [[mockCell expect] setFrame:CGRectMake(5.5, 1, 3.5, 3.5)];
+                    _boardVC.cells = @[mockCell];
                     
-                    it(@"sets the frame for the top-left cell", ^{
-                        id mockCell = [OCMockObject partialMockForObject:[[JDVCell alloc] init]];
-                        [[[mockCell stub] andReturn:@{JDVCellRow:@1, JDVCellColumn:@1}] boardLocation];
-                        [[mockCell expect] setFrame:CGRectMake(2, 2, 2, 2)];
-                        _boardVC.cells = @[mockCell];
-                        
-                        [_boardVC view];
-                        [mockCell verify];
-                    });
+                    [_boardVC view];
+                    [mockCell verify];
+                });
+                
+                it(@"sets the frame for the bottom-left cell", ^{
+                    id mockCell = [OCMockObject partialMockForObject:[[JDVCell alloc] init]];
+                    [[[mockCell stub] andReturn:@{JDVCellRow:@2, JDVCellColumn:@1}] boardLocation];
+                    [[mockCell expect] setFrame:CGRectMake(1, 5.5, 3.5, 3.5)];
+                    _boardVC.cells = @[mockCell];
                     
-                    it(@"sets the frame for the top-right cell", ^{
-                        id mockCell = [OCMockObject partialMockForObject:[[JDVCell alloc] init]];
-                        [[[mockCell stub] andReturn:@{JDVCellRow:@1, JDVCellColumn:@2}] boardLocation];
-                        [[mockCell expect] setFrame:CGRectMake(6, 2, 2, 2)];
-                        _boardVC.cells = @[mockCell];
-                        
-                        [_boardVC view];
-                        [mockCell verify];
-                    });
-                    
-                    it(@"sets the frame for the bottom-left cell", ^{
-                        id mockCell = [OCMockObject partialMockForObject:[[JDVCell alloc] init]];
-                        [[[mockCell stub] andReturn:@{JDVCellRow:@2, JDVCellColumn:@1}] boardLocation];
-                        [[mockCell expect] setFrame:CGRectMake(2, 6, 2, 2)];
-                        _boardVC.cells = @[mockCell];
-                        
-                        [_boardVC view];
-                        [mockCell verify];
-                    });
+                    [_boardVC view];
+                    [mockCell verify];
                 });
             });
             
-            it(@"adds the cells to the view", ^{
-                JDVCell *cell = [[JDVCell alloc] init];
-                _boardVC.cells = @[cell];
+            context(@"board with lineWidth 2.0", ^{
+                beforeEach(^{
+                    _boardVC.lineWidth = 2;
+                });
                 
-                [_boardVC view];
-                expect(_boardVC.view.subviews).to.contain(cell);
+                it(@"calculates and sets the value of the cellWidth property", ^{
+                    [_boardVC view];
+                    expect(_boardVC.cellWidth).to.equal(2);
+                });
+                
+                it(@"sets the frame for the top-left cell", ^{
+                    id mockCell = [OCMockObject partialMockForObject:[[JDVCell alloc] init]];
+                    [[[mockCell stub] andReturn:@{JDVCellRow:@1, JDVCellColumn:@1}] boardLocation];
+                    [[mockCell expect] setFrame:CGRectMake(2, 2, 2, 2)];
+                    _boardVC.cells = @[mockCell];
+                    
+                    [_boardVC view];
+                    [mockCell verify];
+                });
+                
+                it(@"sets the frame for the top-right cell", ^{
+                    id mockCell = [OCMockObject partialMockForObject:[[JDVCell alloc] init]];
+                    [[[mockCell stub] andReturn:@{JDVCellRow:@1, JDVCellColumn:@2}] boardLocation];
+                    [[mockCell expect] setFrame:CGRectMake(6, 2, 2, 2)];
+                    _boardVC.cells = @[mockCell];
+                    
+                    [_boardVC view];
+                    [mockCell verify];
+                });
+                
+                it(@"sets the frame for the bottom-left cell", ^{
+                    id mockCell = [OCMockObject partialMockForObject:[[JDVCell alloc] init]];
+                    [[[mockCell stub] andReturn:@{JDVCellRow:@2, JDVCellColumn:@1}] boardLocation];
+                    [[mockCell expect] setFrame:CGRectMake(2, 6, 2, 2)];
+                    _boardVC.cells = @[mockCell];
+                    
+                    [_boardVC view];
+                    [mockCell verify];
+                });
             });
         });
+        
+        it(@"adds the cells to the view", ^{
+            JDVCell *cell = [[JDVCell alloc] init];
+            _boardVC.cells = @[cell];
+            
+            [_boardVC view];
+            expect(_boardVC.view.subviews).to.contain(cell);
+        });
+    });
+    
+    describe(@"when it resets the cells", ^{
+        
     });
 });
 

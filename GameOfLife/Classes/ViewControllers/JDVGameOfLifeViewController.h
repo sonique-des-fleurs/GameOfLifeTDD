@@ -13,8 +13,12 @@
 @property (strong, nonatomic) IBOutlet UIButton *runButton;
 @property (strong, nonatomic) IBOutlet UIButton *clearButton;
 @property (strong, nonatomic) JDVBoardViewController *boardVC;
+@property (strong, nonatomic) NSTimer *gameTimer;
+@property (assign, nonatomic) BOOL gameIsRunning;
 
 - (IBAction)toggleRun:(id)sender;
 - (IBAction)clear:(id)sender;
+- (void)startGame;
+- (void)stopGame;
 
 @end

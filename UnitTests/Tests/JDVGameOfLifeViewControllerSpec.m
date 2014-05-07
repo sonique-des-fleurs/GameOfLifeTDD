@@ -11,19 +11,29 @@
 SpecBegin(JDVGameOfLifeViewController)
 
 describe(@"JDVGameOfLifeViewController", ^{
-    __block JDVGameOfLifeViewController *_gameOfLifeVC;
-    
-    beforeEach(^{
-        _gameOfLifeVC = [[JDVGameOfLifeViewController alloc] init];
-    });
-    
     describe(@"when it is created", ^{
+        __block JDVGameOfLifeViewController *_gameOfLifeVC;
+        
+        beforeEach(^{
+            _gameOfLifeVC = [[JDVGameOfLifeViewController alloc] init];
+        });
+        
         it(@"assigns a JDVBoardViewController to the boardVC property", ^{
             expect(_gameOfLifeVC.boardVC).to.beInstanceOf([JDVBoardViewController class]);
+        });
+        
+        it(@"the game is not running", ^{
+            expect(_gameOfLifeVC.gameIsRunning).to.beFalsy();
         });
     });
     
     describe(@"when its view property is accessed", ^{
+        __block JDVGameOfLifeViewController *_gameOfLifeVC;
+        
+        beforeEach(^{
+            _gameOfLifeVC = [[JDVGameOfLifeViewController alloc] init];
+        });
+        
         it(@"assigns a UIButton to the startButton property", ^{
             [_gameOfLifeVC view];
             expect(_gameOfLifeVC.runButton).to.beInstanceOf([UIButton class]);
@@ -72,42 +82,111 @@ describe(@"JDVGameOfLifeViewController", ^{
         });
     });
     
-    xcontext(@"the game is not running", ^{
-        describe(@"when the user taps the START button", ^{
-            it(@"changes the button to read 'PAUSE'", ^{
-                
+    context(@"the game is stopped", ^{
+        __block JDVGameOfLifeViewController *_gameOfLifeVC;
+        
+        beforeEach(^{
+            _gameOfLifeVC = [[JDVGameOfLifeViewController alloc] init];
+            [_gameOfLifeVC view];
+            [_gameOfLifeVC stopGame];
+        });
+        
+        describe(@"when the user taps the run button", ^{
+            it(@"starts the game", ^{
+                id mockGameOfLifeVC = [OCMockObject partialMockForObject:_gameOfLifeVC];
+                [[mockGameOfLifeVC expect] startGame];
+                [_gameOfLifeVC toggleRun:nil];
+                [mockGameOfLifeVC verify];
             });
-         
-            it(@"starts the game timer", ^{
-                
+        });
+        
+        describe(@"when the game starts", ^{
+            it(@"assigns TRUE to the gameIsRunning property", ^{
+                [_gameOfLifeVC startGame];
+                expect(_gameOfLifeVC.gameIsRunning).to.beTruthy();
+            });
+            
+            it(@"sets the button to read STOP", ^{
+                [_gameOfLifeVC startGame];
+                expect([_gameOfLifeVC.runButton titleForState:UIControlStateNormal]).to.equal(@"STOP");
+            });
+
+            it(@"it assigns a timer to the gameTimer property", ^{
+                [_gameOfLifeVC startGame];
+                expect(_gameOfLifeVC.gameTimer).notTo.beNil();
+            });
+            
+            it(@"adds the timer to the current run loop", ^{
+                id mockRunLoop = [OCMockObject partialMockForObject:[NSRunLoop currentRunLoop]];
+                [[mockRunLoop expect] addTimer:[OCMArg any] forMode:NSDefaultRunLoopMode];
+                [_gameOfLifeVC startGame];
+                [mockRunLoop verify];
             });
             
             it(@"disables the CLEAR button", ^{
-                
+                [_gameOfLifeVC startGame];
+                expect(_gameOfLifeVC.clearButton.enabled).to.beFalsy();
             });
         });
         
         describe(@"when the user taps the CLEAR button", ^{
-            it(@"sets all of the cells on the board to dead", ^{
+            it(@"tells the board view controller to reset the cells", ^{
+                id mockBoardVC = [OCMockObject mockForClass:[JDVBoardViewController class]];
+                [[mockBoardVC expect] resetCells];
+                _gameOfLifeVC.boardVC = mockBoardVC;
                 
+                [_gameOfLifeVC clear:nil];
+                [mockBoardVC verify];
             });
         });
     });
     
-    xcontext(@"the game is running", ^{
-        describe(@"when the user taps the PAUSE button", ^{
-            it(@"changes the button to read 'START'", ^{
-                
+    context(@"the game is started", ^{
+        __block JDVGameOfLifeViewController *_gameOfLifeVC;
+        
+        beforeEach(^{
+            _gameOfLifeVC = [[JDVGameOfLifeViewController alloc] init];
+            [_gameOfLifeVC view];
+            [_gameOfLifeVC startGame];
+        });
+        
+        describe(@"when the user taps the run button", ^{
+            it(@"stops the game", ^{
+                id mockGameOfLifeVC = [OCMockObject partialMockForObject:_gameOfLifeVC];
+                [[mockGameOfLifeVC expect] stopGame];
+                [_gameOfLifeVC toggleRun:nil];
+                [mockGameOfLifeVC verify];
+            });
+        });
+        
+        describe(@"when the game stops", ^{
+            it(@"assigns FALSE to the gameIsRunning property", ^{
+                [_gameOfLifeVC stopGame];
+                expect(_gameOfLifeVC.gameIsRunning).to.beFalsy();
             });
             
-            it(@"stops the game timer", ^{
-        
+            it(@"sets the button to read START", ^{
+                NSLog(@"beforeToggle: %@", _gameOfLifeVC.runButton.titleLabel.text);
+                NSLog(@"gameTimer: %@", _gameOfLifeVC.gameTimer);
+                [_gameOfLifeVC stopGame];
+                NSLog(@"afterToggle: %@", _gameOfLifeVC.runButton.titleLabel.text);
+                expect([_gameOfLifeVC.runButton titleForState:UIControlStateNormal]).to.equal(@"START");
+            });
+            
+            it(@"invalidates the game timer", ^{
+                [_gameOfLifeVC stopGame];
+                expect(_gameOfLifeVC.gameTimer.isValid).to.beFalsy();
             });
             
             it(@"enables the CLEAR button", ^{
-                
+                [_gameOfLifeVC stopGame];
+                expect(_gameOfLifeVC.clearButton.enabled).to.beTruthy();
             });
         });
+    });
+    
+    describe(@"when the game timer fires", ^{
+        
     });
 });
 
