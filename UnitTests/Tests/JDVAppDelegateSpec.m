@@ -12,38 +12,74 @@
 SpecBegin(JDVAppDelegate)
 
 describe(@"JDVAppDelegate", ^{
-    context(@"when app finishes launching", ^{
+    describe(@"when the app finishes launching", ^{
         __block JDVAppDelegate *_appDelegate;
         
         beforeEach(^{
             _appDelegate = [[JDVAppDelegate alloc] init];
         });
         
-        it(@"assigns an instance of UIWindow to its window property", ^{
+        it(@"assigns an instance of UIWindow to the window property", ^{
             [_appDelegate application:nil didFinishLaunchingWithOptions:nil];
             expect(_appDelegate.window).to.beInstanceOf([UIWindow class]);
         });
         
-        it(@"sets the frame of its window property equal to the bounds of the main screen", ^{
+        it(@"sets the frame of the window to the bounds of the main screen", ^{
+            id mockWindow = [OCMockObject niceMockForClass:[UIWindow class]];
+            [[mockWindow expect] setFrame:[[UIScreen mainScreen] bounds]];
+            
+            id mockAppDelegate = [OCMockObject partialMockForObject:_appDelegate];
+            [[[mockAppDelegate stub] andReturn:mockWindow] window];
+            
             [_appDelegate application:nil didFinishLaunchingWithOptions:nil];
-            expect(_appDelegate.window.frame).to.equal([[UIScreen mainScreen] bounds]);
+            [mockWindow verify];
         });
         
-        it(@"assigns an instance of JDVGameOfLifeViewController to the rootViewController property of its window", ^{
+        it(@"sets the rootViewController property of the window ", ^{
+            id mockRootVC = [OCMockObject mockForClass:[UIViewController class]];
+            
+            id mockWindow = [OCMockObject niceMockForClass:[UIWindow class]];
+            [[mockWindow expect] setRootViewController:mockRootVC];
+            
+            id mockAppDelegate = [OCMockObject partialMockForObject:_appDelegate];
+            [[[mockAppDelegate stub] andReturn:mockWindow] window];
+            [[[mockAppDelegate stub] andReturn:mockRootVC] appRootVC];
+            
             [_appDelegate application:nil didFinishLaunchingWithOptions:nil];
-            expect(_appDelegate.window.rootViewController).to.beInstanceOf([JDVGameOfLifeViewController class]);
+            [mockWindow verify];
         });
         
-        it(@"sets its window to be the key window for the app", ^{
+        it(@"sets the window to be the key window for the app", ^{
+            id mockWindow = [OCMockObject niceMockForClass:[UIWindow class]];
+            [[mockWindow expect] makeKeyWindow];
+            
+            id mockAppDelegate = [OCMockObject partialMockForObject:_appDelegate];
+            [[[mockAppDelegate stub] andReturn:mockWindow] window];
+            
             [_appDelegate application:nil didFinishLaunchingWithOptions:nil];
-            expect(_appDelegate.window.keyWindow).to.beTruthy();
+            [mockWindow verify];
         });
         
-        it(@"sets its window to be the top window in the app", ^{
+        it(@"sets the window to be visible", ^{
+            id mockWindow = [OCMockObject niceMockForClass:[UIWindow class]];
+            [[mockWindow expect] setHidden:FALSE];
+            
+            id mockAppDelegate = [OCMockObject partialMockForObject:_appDelegate];
+            [[[mockAppDelegate stub] andReturn:mockWindow] window];
+            
             [_appDelegate application:nil didFinishLaunchingWithOptions:nil];
-            UIWindow *topWindow = [[[UIApplication sharedApplication] windows] lastObject];
-            expect(_appDelegate.window).to.equal(topWindow);
+            [mockWindow verify];
         });
+        
+        it(@"it reports that it has successfully launched", ^{
+            BOOL didLaunch = [_appDelegate application:nil didFinishLaunchingWithOptions:nil];
+            expect(didLaunch).to.beTruthy();
+        });
+    });
+    
+    it(@"creates a rootVC for the app", ^{
+        JDVAppDelegate *appDelegate = [[JDVAppDelegate alloc] init];
+        expect([appDelegate appRootVC]).to.beKindOf([UIViewController class]);
     });
 });
 
