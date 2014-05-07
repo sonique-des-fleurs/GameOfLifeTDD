@@ -14,16 +14,16 @@ describe(@"JDVCell", ^{
     __block JDVCell *_cell;
     
     describe(@"when it is created in the second row", ^{
-        it(@"assigns 2 to the row property", ^{
-            _cell = [[JDVCell alloc] initWithRow:2 column:1];
-            expect(_cell.row).to.equal(2);
+        it(@"assigns 2 to the row key of the location property", ^{
+            _cell = [[JDVCell alloc] initWithBoardLocation:@{JDVCellRow:@2, JDVCellColumn:@1}];
+            expect(_cell.boardLocation[JDVCellRow]).to.equal(@2);
         });
     });
     
     describe(@"when it is created in the second column", ^{
-        it(@"assigns 2 to the column property", ^{
-            _cell = [[JDVCell alloc] initWithRow:1 column:2];
-            expect(_cell.column).to.equal(2);
+        it(@"assigns 2 to the column key of the location property", ^{
+            _cell = [[JDVCell alloc] initWithBoardLocation:@{JDVCellRow:@1, JDVCellColumn:@2}];
+            expect(_cell.boardLocation[JDVCellColumn]).to.equal(@2);
         });
     });
     
@@ -32,12 +32,8 @@ describe(@"JDVCell", ^{
             _cell = [[JDVCell alloc] init];
         });
         
-        it(@"sets the value of the row property", ^{
-            expect(_cell.row).notTo.equal(0);
-        });
-        
-        it(@"sets the value of the column property", ^{
-            expect(_cell.column).notTo.equal(0);
+        it(@"sets the value of the location property", ^{
+            expect(_cell.boardLocation).notTo.beNil();
         });
     });
 });

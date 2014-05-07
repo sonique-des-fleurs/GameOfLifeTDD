@@ -12,6 +12,7 @@
 SpecBegin(JDVBoardViewController)
 describe(@"JDVBoardViewController", ^{
     __block JDVBoardViewController *_boardVC;
+    __block NSMutableArray *_allCellLocations;
     
     describe(@"when it is created with 1 cell per row", ^{
         beforeEach(^{
@@ -25,11 +26,24 @@ describe(@"JDVBoardViewController", ^{
         it(@"assigns a collection containing 1 cell to the cells property", ^{
             expect(_boardVC.cells).to.haveCountOf(1);
         });
+        
+        it(@"creates a cell at row 1, column 1", ^{
+            _allCellLocations = [NSMutableArray array];
+            for (JDVCell *cell in _boardVC.cells) {
+                [_allCellLocations addObject:cell.boardLocation];
+            }
+            expect(_allCellLocations).to.contain((@{JDVCellRow: @1, JDVCellColumn: @1}));
+        });
     });
     
     describe(@"when it is created with 2 cells per row", ^{
         beforeEach(^{
             _boardVC = [[JDVBoardViewController alloc] initWithCellsPerRow:2];
+            
+            _allCellLocations = [NSMutableArray array];
+            for (JDVCell *cell in _boardVC.cells) {
+                [_allCellLocations addObject:cell.boardLocation];
+            }
         });
         
         it(@"sets the value of the numberOfCellsPerRow property", ^{
@@ -38,6 +52,22 @@ describe(@"JDVBoardViewController", ^{
         
         it(@"assigns a collection containing 4 cells to the cells property", ^{
             expect(_boardVC.cells).to.haveCountOf(4);
+        });
+        
+        it(@"creates a cell at row 1, column 1", ^{
+            expect(_allCellLocations).to.contain((@{JDVCellRow: @1, JDVCellColumn: @1}));
+        });
+        
+        it(@"creates a cell at row 1, column 2", ^{
+            expect(_allCellLocations).to.contain((@{JDVCellRow: @1, JDVCellColumn: @2}));
+        });
+        
+        it(@"creates a cell at row 2, column 1", ^{
+            expect(_allCellLocations).to.contain((@{JDVCellRow: @2, JDVCellColumn: @1}));
+        });
+        
+        it(@"creates a cell at row 2, column 2", ^{
+            expect(_allCellLocations).to.contain((@{JDVCellRow: @2, JDVCellColumn: @2}));
         });
     });
     
@@ -92,8 +122,7 @@ describe(@"JDVBoardViewController", ^{
                     
                     it(@"sets the frame for the top-left cell", ^{
                         id mockCell = [OCMockObject partialMockForObject:[[JDVCell alloc] init]];
-                        [[[mockCell stub] andReturnValue:@1] row];
-                        [[[mockCell stub] andReturnValue:@1] column];
+                        [[[mockCell stub] andReturn:@{JDVCellRow:@1, JDVCellColumn:@1}] boardLocation];
                         [[mockCell expect] setFrame:CGRectMake(1, 1, 3.5, 3.5)];
                         _boardVC.cells = @[mockCell];
                         
@@ -103,8 +132,7 @@ describe(@"JDVBoardViewController", ^{
                     
                     it(@"sets the frame for the top-right cell", ^{
                         id mockCell = [OCMockObject partialMockForObject:[[JDVCell alloc] init]];
-                        [[[mockCell stub] andReturnValue:@1] row];
-                        [[[mockCell stub] andReturnValue:@2] column];
+                        [[[mockCell stub] andReturn:@{JDVCellRow:@1, JDVCellColumn:@2}] boardLocation];
                         [[mockCell expect] setFrame:CGRectMake(5.5, 1, 3.5, 3.5)];
                         _boardVC.cells = @[mockCell];
                         
@@ -114,8 +142,7 @@ describe(@"JDVBoardViewController", ^{
                     
                     it(@"sets the frame for the bottom-left cell", ^{
                         id mockCell = [OCMockObject partialMockForObject:[[JDVCell alloc] init]];
-                        [[[mockCell stub] andReturnValue:@2] row];
-                        [[[mockCell stub] andReturnValue:@1] column];
+                        [[[mockCell stub] andReturn:@{JDVCellRow:@2, JDVCellColumn:@1}] boardLocation];
                         [[mockCell expect] setFrame:CGRectMake(1, 5.5, 3.5, 3.5)];
                         _boardVC.cells = @[mockCell];
                         
@@ -136,8 +163,7 @@ describe(@"JDVBoardViewController", ^{
                     
                     it(@"sets the frame for the top-left cell", ^{
                         id mockCell = [OCMockObject partialMockForObject:[[JDVCell alloc] init]];
-                        [[[mockCell stub] andReturnValue:@1] row];
-                        [[[mockCell stub] andReturnValue:@1] column];
+                        [[[mockCell stub] andReturn:@{JDVCellRow:@1, JDVCellColumn:@1}] boardLocation];
                         [[mockCell expect] setFrame:CGRectMake(2, 2, 2, 2)];
                         _boardVC.cells = @[mockCell];
                         
@@ -147,8 +173,7 @@ describe(@"JDVBoardViewController", ^{
                     
                     it(@"sets the frame for the top-right cell", ^{
                         id mockCell = [OCMockObject partialMockForObject:[[JDVCell alloc] init]];
-                        [[[mockCell stub] andReturnValue:@1] row];
-                        [[[mockCell stub] andReturnValue:@2] column];
+                        [[[mockCell stub] andReturn:@{JDVCellRow:@1, JDVCellColumn:@2}] boardLocation];
                         [[mockCell expect] setFrame:CGRectMake(6, 2, 2, 2)];
                         _boardVC.cells = @[mockCell];
                         
@@ -158,8 +183,7 @@ describe(@"JDVBoardViewController", ^{
                     
                     it(@"sets the frame for the bottom-left cell", ^{
                         id mockCell = [OCMockObject partialMockForObject:[[JDVCell alloc] init]];
-                        [[[mockCell stub] andReturnValue:@2] row];
-                        [[[mockCell stub] andReturnValue:@1] column];
+                        [[[mockCell stub] andReturn:@{JDVCellRow:@2, JDVCellColumn:@1}] boardLocation];
                         [[mockCell expect] setFrame:CGRectMake(2, 6, 2, 2)];
                         _boardVC.cells = @[mockCell];
                         

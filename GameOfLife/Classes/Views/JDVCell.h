@@ -6,11 +6,13 @@
 //  Copyright (c) 2014 JDV. All rights reserved.
 //
 
+extern NSString *const JDVCellRow;
+extern NSString *const JDVCellColumn;
+
 @interface JDVCell : UIButton
 
-@property (assign, nonatomic) NSInteger row;
-@property (assign, nonatomic) NSInteger column;
+@property (assign, nonatomic) NSDictionary *boardLocation;
 
-- (id)initWithRow:(NSInteger)row column:(NSInteger)column;
+- (id)initWithBoardLocation:(NSDictionary *)location;
 
 @end

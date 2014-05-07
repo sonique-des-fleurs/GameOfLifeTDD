@@ -8,21 +8,23 @@
 
 #import "JDVCell.h"
 
+NSString *const JDVCellRow = @"row";
+NSString *const JDVCellColumn = @"column";
+
 @implementation JDVCell
 
-- (id)initWithRow:(NSInteger)row column:(NSInteger)column
+- (id)initWithBoardLocation:(NSDictionary *)location
 {
     self = [super init];
     if (self) {
-        _row = row;
-        _column = column;
+        _boardLocation = location;
     }
     return self;
 }
 
 - (id)init
 {
-    return [self initWithRow:1 column:1];
+    return [self initWithBoardLocation:@{JDVCellRow: @0, JDVCellColumn:@0}];
 }
 
 @end
