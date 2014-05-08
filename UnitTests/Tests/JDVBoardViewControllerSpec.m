@@ -264,7 +264,7 @@ describe(@"JDVBoardViewController", ^{
             NSSet *neighbors = [NSSet setWithObjects:_cell2_2, _cell2_3, _cell2_4, _cell3_2, _cell3_4, _cell4_2, _cell4_3, _cell4_4, nil];
             [[mockInteriorCell expect] setNextStateWithNeighbors:neighbors];
 
-            [_boardVC update];
+            [_boardVC update:nil];
             [mockInteriorCell verify];
         });
         
@@ -273,7 +273,7 @@ describe(@"JDVBoardViewController", ^{
             NSSet *neighbors = [NSSet setWithObjects:_cell2_1, _cell2_2, _cell3_2, _cell4_1, _cell4_2, nil];
             [[mockEdgeCell expect] setNextStateWithNeighbors:neighbors];
             
-            [_boardVC update];
+            [_boardVC update:nil];
             [mockEdgeCell verify];
         });
         
@@ -282,7 +282,7 @@ describe(@"JDVBoardViewController", ^{
             NSSet *neighbors = [NSSet setWithObjects:_cell1_3, _cell2_3, _cell2_4, nil];
             [[mockCornerCell expect] setNextStateWithNeighbors:neighbors];
             
-            [_boardVC update];
+            [_boardVC update:nil];
             [mockCornerCell verify];
         });
     });

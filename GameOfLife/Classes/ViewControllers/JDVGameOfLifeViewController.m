@@ -8,6 +8,8 @@
 
 #import "JDVGameOfLifeViewController.h"
 
+NSInteger const JDVGameOfLifeTimerInterval = 1;
+
 @interface JDVGameOfLifeViewController ()
 
 @end
@@ -51,7 +53,7 @@
     self.gameIsRunning = TRUE;
     [self.runButton setTitle:@"STOP" forState:UIControlStateNormal];
     self.clearButton.enabled = FALSE;
-    self.gameTimer = [NSTimer timerWithTimeInterval:1 target:self selector:@selector(timerDidFire:) userInfo:nil repeats:YES];
+    self.gameTimer = [NSTimer timerWithTimeInterval:JDVGameOfLifeTimerInterval target:self.boardVC selector:@selector(update:) userInfo:nil repeats:YES];
     [[NSRunLoop currentRunLoop] addTimer:self.gameTimer forMode:NSDefaultRunLoopMode];
     [self.boardVC gameDidStart];
 }
@@ -68,11 +70,6 @@
 - (IBAction)clear:(id)sender
 {
     [self.boardVC reset];
-}
-
-- (void)timerDidFire:(NSTimer *)timer
-{
-    [self.boardVC update];
 }
 
 @end

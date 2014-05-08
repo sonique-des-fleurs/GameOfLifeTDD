@@ -46,7 +46,7 @@
     }
 }
 
-- (void)update
+- (void)update:(NSTimer *)timer
 {
     for (JDVCell *cell in self.cells) {
         NSSet *neighbors = [self neighborsForCell:cell];

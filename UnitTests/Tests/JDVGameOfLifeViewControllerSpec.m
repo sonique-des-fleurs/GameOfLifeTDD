@@ -110,6 +110,21 @@ describe(@"JDVGameOfLifeViewController", ^{
                 [_gameOfLifeVC startGame];
                 expect([_gameOfLifeVC.runButton titleForState:UIControlStateNormal]).to.equal(@"STOP");
             });
+            
+            it(@"creates a timer with the correct timer interval", ^{
+                [_gameOfLifeVC startGame];
+                expect(_gameOfLifeVC.gameTimer.timeInterval).to.equal(JDVGameOfLifeTimerInterval);
+            });
+            
+            it(@"tells the board view controller to update when the timer fires", ^{
+                id mockBoardVC = [OCMockObject niceMockForClass:[JDVBoardViewController class]];
+                [[mockBoardVC expect] update:[OCMArg any]];
+                _gameOfLifeVC.boardVC = mockBoardVC;
+                
+                [_gameOfLifeVC startGame];
+                [_gameOfLifeVC.gameTimer fire];
+                [mockBoardVC verify];
+            });
 
             it(@"it assigns a timer to the gameTimer property", ^{
                 [_gameOfLifeVC startGame];
@@ -200,18 +215,6 @@ describe(@"JDVGameOfLifeViewController", ^{
                 [_gameOfLifeVC stopGame];
                 [mockBoardVC verify];
             });
-        });
-    });
-    
-    describe(@"when the game timer fires", ^{
-        it(@"tells the board view controller to update", ^{
-            JDVGameOfLifeViewController *gameOfLifeVC = [[JDVGameOfLifeViewController alloc] init];
-            id mockBoardVC = [OCMockObject mockForClass:[JDVBoardViewController class]];
-            [[mockBoardVC expect] update];
-            gameOfLifeVC.boardVC = mockBoardVC;
-            
-            [gameOfLifeVC timerDidFire:nil];
-            [mockBoardVC verify];
         });
     });
 });

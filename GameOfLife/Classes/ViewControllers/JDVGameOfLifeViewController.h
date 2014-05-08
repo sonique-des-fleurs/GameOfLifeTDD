@@ -8,6 +8,8 @@
 
 #import "JDVBoardViewController.h"
 
+extern NSInteger const JDVGameOfLifeTimerInterval;
+
 @interface JDVGameOfLifeViewController : UIViewController
 
 @property (strong, nonatomic) IBOutlet UIButton *runButton;
@@ -20,6 +22,5 @@
 - (IBAction)clear:(id)sender;
 - (void)startGame;
 - (void)stopGame;
-- (void)timerDidFire:(NSTimer *)timer;
 
 @end
