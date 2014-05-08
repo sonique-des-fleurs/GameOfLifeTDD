@@ -286,6 +286,30 @@ describe(@"JDVBoardViewController", ^{
             [mockCornerCell verify];
         });
     });
+    
+    describe(@"when the game starts", ^{
+        it(@"tells each of the cells", ^{
+            JDVBoardViewController *boardVC = [[JDVBoardViewController alloc] init];
+            id mockCell = [OCMockObject mockForClass:[JDVCell class]];
+            [[mockCell expect] gameDidStart];
+            boardVC.cells = @[mockCell];
+            
+            [boardVC gameDidStart];
+            [mockCell verify];
+        });
+    });
+    
+    describe(@"when the game stops", ^{
+        it(@"tells each of the cells", ^{
+            JDVBoardViewController *boardVC = [[JDVBoardViewController alloc] init];
+            id mockCell = [OCMockObject mockForClass:[JDVCell class]];
+            [[mockCell expect] gameDidStop];
+            boardVC.cells = @[mockCell];
+            
+            [boardVC gameDidStop];
+            [mockCell verify];
+        });
+    });
 });
 
 SpecEnd

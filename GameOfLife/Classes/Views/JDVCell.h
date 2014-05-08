@@ -23,5 +23,7 @@ typedef enum {
 - (void)setNextStateWithNeighbors:(NSSet *)neighbors;
 - (void)reset;
 - (void)toggleState:(id)sender;
+- (void)gameDidStart;
+- (void)gameDidStop;
 
 @end

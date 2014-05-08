@@ -144,6 +144,55 @@ describe(@"JDVCell", ^{
             });
         });
     });
+    
+    describe(@"when the game starts", ^{
+        it(@"disables user interaction", ^{
+            [_cell gameDidStart];
+            expect(_cell.userInteractionEnabled).to.beFalsy();
+        });
+    });
+    
+    describe(@"when the game stops", ^{
+        it(@"enables user interaction", ^{
+            [_cell gameDidStop];
+            expect(_cell.userInteractionEnabled).to.beTruthy();
+        });
+    });
+    
+    context(@"game is not yet started", ^{
+        describe(@"when the game starts", ^{
+            it(@"disables user interaction", ^{
+                [_cell gameDidStart];
+                expect(_cell.userInteractionEnabled).to.beFalsy();
+            });
+        });
+        
+        context(@"the game has been started", ^{
+            beforeEach(^{
+                [_cell gameDidStart];
+            });
+            
+            describe(@"when the game stops", ^{
+                it(@"enables user interaction", ^{
+                    [_cell gameDidStop];
+                    expect(_cell.userInteractionEnabled).to.beTruthy();
+                });
+            });
+            
+            context(@"the game has been stopped", ^{
+                beforeEach(^{
+                    [_cell gameDidStop];
+                });
+                
+                describe(@"when the game restarts", ^{
+                    it(@"disables user interaction", ^{
+                        [_cell gameDidStart];
+                        expect(_cell.userInteractionEnabled).to.beFalsy();
+                    });
+                });
+            });
+        });
+    });
 });
 
 SpecEnd

@@ -18,5 +18,7 @@
 - (id)initWithCellsPerRow:(NSInteger)numberOfCellsPerRow;
 - (void)reset;
 - (void)update;
+- (void)gameDidStart;
+- (void)gameDidStop;
 
 @end

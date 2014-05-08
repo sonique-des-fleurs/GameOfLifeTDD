@@ -48,6 +48,16 @@ NSString *const JDVCellColumn = @"column";
     }
 }
 
+- (void)gameDidStart
+{
+    self.userInteractionEnabled = FALSE;
+}
+
+- (void)gameDidStop
+{
+    self.userInteractionEnabled = TRUE;
+}
+
 #pragma mark - private methods
 
 - (void)setDead

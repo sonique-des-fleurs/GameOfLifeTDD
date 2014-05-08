@@ -127,6 +127,15 @@ describe(@"JDVGameOfLifeViewController", ^{
                 [_gameOfLifeVC startGame];
                 expect(_gameOfLifeVC.clearButton.enabled).to.beFalsy();
             });
+            
+            it(@"tells the board view controller that the game has started", ^{
+                id mockBoardVC = [OCMockObject mockForClass:[JDVBoardViewController class]];
+                [[mockBoardVC expect] gameDidStart];
+                _gameOfLifeVC.boardVC = mockBoardVC;
+
+                [_gameOfLifeVC startGame];
+                [mockBoardVC verify];
+            });
         });
         
         describe(@"when the user taps the CLEAR button", ^{
@@ -181,6 +190,15 @@ describe(@"JDVGameOfLifeViewController", ^{
             it(@"enables the CLEAR button", ^{
                 [_gameOfLifeVC stopGame];
                 expect(_gameOfLifeVC.clearButton.enabled).to.beTruthy();
+            });
+            
+            it(@"tells the board view controller that the game has stopped", ^{
+                id mockBoardVC = [OCMockObject mockForClass:[JDVBoardViewController class]];
+                [[mockBoardVC expect] gameDidStop];
+                _gameOfLifeVC.boardVC = mockBoardVC;
+                
+                [_gameOfLifeVC stopGame];
+                [mockBoardVC verify];
             });
         });
     });

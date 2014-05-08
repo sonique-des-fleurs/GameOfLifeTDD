@@ -61,6 +61,20 @@
     }
 }
 
+- (void)gameDidStart
+{
+    for (JDVCell *cell in self.cells) {
+        [cell gameDidStart];
+    }
+}
+
+- (void)gameDidStop
+{
+    for (JDVCell *cell in self.cells) {
+        [cell gameDidStop];
+    }
+}
+
 #pragma mark - private methods
 
 - (void)initializeCells

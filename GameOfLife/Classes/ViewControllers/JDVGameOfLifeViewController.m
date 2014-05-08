@@ -53,6 +53,7 @@
     self.clearButton.enabled = FALSE;
     self.gameTimer = [NSTimer timerWithTimeInterval:1 target:self selector:@selector(timerDidFire:) userInfo:nil repeats:YES];
     [[NSRunLoop currentRunLoop] addTimer:self.gameTimer forMode:NSDefaultRunLoopMode];
+    [self.boardVC gameDidStart];
 }
 
 - (void)stopGame
@@ -61,6 +62,7 @@
     [self.runButton setTitle:@"START" forState:UIControlStateNormal];
     self.clearButton.enabled = TRUE;
     [self.gameTimer invalidate];
+    [self.boardVC gameDidStop];
 }
 
 - (IBAction)clear:(id)sender
