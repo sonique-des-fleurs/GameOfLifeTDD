@@ -20,7 +20,7 @@ typedef enum {
 @property (assign, nonatomic) JDVCellState currentState;
 
 - (id)initWithBoardLocation:(NSDictionary *)location;
-- (void)setNextState;
+- (void)setNextStateWithNeighbors:(NSSet *)neighbors;
 - (void)reset;
 - (void)toggleState:(id)sender;
 

@@ -38,14 +38,10 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = self.boardColor;
-    self.cellWidth = (self.boardWidth - ((self.numberOfCellsPerRow + 1) * self.lineWidth)) / self.numberOfCellsPerRow;
+    self.cellWidth = [self calculatedCellWidth];
     
     for (JDVCell *cell in self.cells) {
-        NSInteger cellColumn = [cell.boardLocation[JDVCellColumn] integerValue];
-        NSInteger cellRow = [cell.boardLocation[JDVCellRow] integerValue];
-        CGFloat cellOriginX = (cellColumn * self.lineWidth) + ((cellColumn - 1) * self.cellWidth);
-        CGFloat cellOriginY = (cellRow * self.lineWidth) + ((cellRow - 1) * self.cellWidth);
-        cell.frame = CGRectMake(cellOriginX, cellOriginY, self.cellWidth, self.cellWidth);
+        [self setFrameForCell:cell];
         [self.view addSubview:cell];
     }
 }
@@ -53,7 +49,8 @@
 - (void)update
 {
     for (JDVCell *cell in self.cells) {
-        [cell setNextState];
+        NSSet *neighbors = [self neighborsForCell:cell];
+        [cell setNextStateWithNeighbors:neighbors];
     }
 }
 
@@ -76,6 +73,36 @@
         };
     };
     _cells = cells;
+}
+
+- (CGFloat)calculatedCellWidth
+{
+    return (self.boardWidth - ((self.numberOfCellsPerRow + 1) * self.lineWidth)) / self.numberOfCellsPerRow;
+}
+
+- (void)setFrameForCell:(JDVCell *)cell
+{
+    NSInteger cellColumn = [cell.boardLocation[JDVCellColumn] integerValue];
+    NSInteger cellRow = [cell.boardLocation[JDVCellRow] integerValue];
+    CGFloat cellOriginX = (cellColumn * self.lineWidth) + ((cellColumn - 1) * self.cellWidth);
+    CGFloat cellOriginY = (cellRow * self.lineWidth) + ((cellRow - 1) * self.cellWidth);
+    cell.frame = CGRectMake(cellOriginX, cellOriginY, self.cellWidth, self.cellWidth);
+}
+
+- (NSSet *)neighborsForCell:(JDVCell *)cell
+{
+    NSMutableSet *neighbors = [NSMutableSet setWithArray:self.cells];
+    for (JDVCell *testCell in self.cells) {
+        NSDictionary *testCellLocation = testCell.boardLocation;
+        if ((abs([cell.boardLocation[JDVCellRow] intValue] - [testCellLocation[JDVCellRow] intValue]) <= 1) &&
+            (abs([cell.boardLocation[JDVCellColumn] intValue] - [testCellLocation[JDVCellColumn] intValue]) <= 1) &&
+            (testCell != cell)) {
+            continue;
+        } else {
+            [neighbors removeObject:testCell];
+        }
+    };
+    return neighbors;
 }
 
 @end

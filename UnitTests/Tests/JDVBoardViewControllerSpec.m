@@ -227,14 +227,63 @@ describe(@"JDVBoardViewController", ^{
     });
     
     describe(@"when it updates", ^{
-        it(@"sets the next state for each cell", ^{
-            JDVBoardViewController *boardVC = [[JDVBoardViewController alloc] init];
-            id mockCell = [OCMockObject mockForClass:[JDVCell class]];
-            [[mockCell expect] setNextState];
-            boardVC.cells = @[mockCell];
+        __block JDVBoardViewController *_boardVC;
+        __block JDVCell *_cell1_1 = [[JDVCell alloc] init];
+        __block JDVCell *_cell1_2 = [[JDVCell alloc] init];
+        __block JDVCell *_cell1_3 = [[JDVCell alloc] init];
+        __block JDVCell *_cell1_4 = [[JDVCell alloc] init];
+        __block JDVCell *_cell2_1 = [[JDVCell alloc] init];
+        __block JDVCell *_cell2_2 = [[JDVCell alloc] init];
+        __block JDVCell *_cell2_3 = [[JDVCell alloc] init];
+        __block JDVCell *_cell2_4 = [[JDVCell alloc] init];
+        __block JDVCell *_cell3_1 = [[JDVCell alloc] init];
+        __block JDVCell *_cell3_2 = [[JDVCell alloc] init];
+        __block JDVCell *_cell3_3 = [[JDVCell alloc] init];
+        __block JDVCell *_cell3_4 = [[JDVCell alloc] init];
+        __block JDVCell *_cell4_1 = [[JDVCell alloc] init];
+        __block JDVCell *_cell4_2 = [[JDVCell alloc] init];
+        __block JDVCell *_cell4_3 = [[JDVCell alloc] init];
+        __block JDVCell *_cell4_4 = [[JDVCell alloc] init];
+        NSArray *cells = @[_cell1_1, _cell1_2, _cell1_3, _cell1_4,
+                           _cell2_1, _cell2_2, _cell2_3, _cell2_4,
+                           _cell3_1, _cell3_2, _cell3_3, _cell3_4,
+                           _cell4_1, _cell4_2, _cell4_3, _cell4_4];
+        
+        beforeAll(^{
+            _boardVC = [[JDVBoardViewController alloc] init];
+            _boardVC.cells = cells;
+            for (JDVCell *cell in cells) {
+                int row = ([cells indexOfObject:cell] / 4) + 1;
+                int column = ([cells indexOfObject:cell] % 4) + 1;
+                cell.boardLocation = @{JDVCellRow:@(row), JDVCellColumn:@(column)};
+            }
+        });
+        
+        it(@"sends an interior cell the 8 surrounding neighbors in order to set the next state", ^{
+            id mockInteriorCell = [OCMockObject partialMockForObject:_cell3_3];
+            NSSet *neighbors = [NSSet setWithObjects:_cell2_2, _cell2_3, _cell2_4, _cell3_2, _cell3_4, _cell4_2, _cell4_3, _cell4_4, nil];
+            [[mockInteriorCell expect] setNextStateWithNeighbors:neighbors];
+
+            [_boardVC update];
+            [mockInteriorCell verify];
+        });
+        
+        it(@"sends a cell on an edge the 5 surrounding neighbors in order to set the next state", ^{
+            id mockEdgeCell = [OCMockObject partialMockForObject:_cell3_1];
+            NSSet *neighbors = [NSSet setWithObjects:_cell2_1, _cell2_2, _cell3_2, _cell4_1, _cell4_2, nil];
+            [[mockEdgeCell expect] setNextStateWithNeighbors:neighbors];
             
-            [boardVC update];
-            [mockCell verify];
+            [_boardVC update];
+            [mockEdgeCell verify];
+        });
+        
+        it(@"sends a cell in a corner the 3 surrounding neighbors in order to set the next state", ^{
+            id mockCornerCell = [OCMockObject partialMockForObject:_cell1_4];
+            NSSet *neighbors = [NSSet setWithObjects:_cell1_3, _cell2_3, _cell2_4, nil];
+            [[mockCornerCell expect] setNextStateWithNeighbors:neighbors];
+            
+            [_boardVC update];
+            [mockCornerCell verify];
         });
     });
 });
