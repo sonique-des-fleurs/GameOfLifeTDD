@@ -9,6 +9,10 @@
 #import "JDVBoardViewController.h"
 #import "JDVCell.h"
 
+CGFloat const kJDVBoardWidth = 728;
+CGFloat const kJDVLineWidth = 2;
+NSInteger const kJDVCellsPerRow = 24;
+
 @interface JDVBoardViewController ()
 
 @end
@@ -21,8 +25,8 @@
     if (self) {
         _numberOfCellsPerRow = numberOfCellsPerRow;
         _boardColor = [UIColor greenColor];
-        _boardWidth = 728;
-        _lineWidth = 2;
+        _boardWidth = kJDVBoardWidth;
+        _lineWidth = kJDVLineWidth;
         [self initializeCells];
     }
     return self;
@@ -30,7 +34,7 @@
 
 - (id)init
 {
-    return [self initWithCellsPerRow:24];
+    return [self initWithCellsPerRow:kJDVCellsPerRow];
 }
 
 - (void)viewDidLoad
@@ -82,7 +86,7 @@
     NSMutableArray *cells = [NSMutableArray array];
     for (int row = 0; row < self.numberOfCellsPerRow; row++) {
         for (int column = 0; column < self.numberOfCellsPerRow; column++) {
-            JDVCell *cell = [[JDVCell alloc] initWithBoardLocation:@{JDVCellRow:[NSNumber numberWithInt:(row + 1)], JDVCellColumn:[NSNumber numberWithInt:(column + 1)]}];
+            JDVCell *cell = [[JDVCell alloc] initWithBoardLocation:@{JDVCellRow:@(row + 1), JDVCellColumn:@(column + 1)}];
             [cells addObject:cell];
         };
     };
@@ -106,14 +110,14 @@
 - (NSSet *)neighborsForCell:(JDVCell *)cell
 {
     NSMutableSet *neighbors = [NSMutableSet setWithArray:self.cells];
-    for (JDVCell *testCell in self.cells) {
-        NSDictionary *testCellLocation = testCell.boardLocation;
+    for (JDVCell *possibleNeighborCell in self.cells) {
+        NSDictionary *testCellLocation = possibleNeighborCell.boardLocation;
         if ((abs([cell.boardLocation[JDVCellRow] intValue] - [testCellLocation[JDVCellRow] intValue]) <= 1) &&
             (abs([cell.boardLocation[JDVCellColumn] intValue] - [testCellLocation[JDVCellColumn] intValue]) <= 1) &&
-            (testCell != cell)) {
+            (possibleNeighborCell != cell)) {
             continue;
         } else {
-            [neighbors removeObject:testCell];
+            [neighbors removeObject:possibleNeighborCell];
         }
     };
     return neighbors;
