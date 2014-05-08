@@ -32,4 +32,9 @@ NSString *const JDVCellColumn = @"column";
     //
 }
 
+- (void)reset
+{
+    //
+}
+
 @end

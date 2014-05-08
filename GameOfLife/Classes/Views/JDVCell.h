@@ -15,5 +15,6 @@ extern NSString *const JDVCellColumn;
 
 - (id)initWithBoardLocation:(NSDictionary *)location;
 - (void)setNextState;
+- (void)reset;
 
 @end

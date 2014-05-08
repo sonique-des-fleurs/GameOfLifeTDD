@@ -132,7 +132,7 @@ describe(@"JDVGameOfLifeViewController", ^{
         describe(@"when the user taps the CLEAR button", ^{
             it(@"tells the board view controller to reset the cells", ^{
                 id mockBoardVC = [OCMockObject mockForClass:[JDVBoardViewController class]];
-                [[mockBoardVC expect] resetCells];
+                [[mockBoardVC expect] reset];
                 _gameOfLifeVC.boardVC = mockBoardVC;
                 
                 [_gameOfLifeVC clear:nil];

@@ -58,9 +58,11 @@
     }
 }
 
-- (void)resetCells
+- (void)reset
 {
-    //
+    for (JDVCell *cell in self.cells) {
+        [cell reset];
+    }
 }
 
 #pragma mark - private methods

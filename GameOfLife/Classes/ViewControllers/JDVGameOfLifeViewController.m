@@ -65,7 +65,7 @@
 
 - (IBAction)clear:(id)sender
 {
-    [self.boardVC resetCells];
+    [self.boardVC reset];
 }
 
 - (void)timerDidFire:(NSTimer *)timer
