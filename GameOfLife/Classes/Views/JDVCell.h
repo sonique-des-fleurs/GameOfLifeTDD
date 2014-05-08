@@ -22,5 +22,6 @@ typedef enum {
 - (id)initWithBoardLocation:(NSDictionary *)location;
 - (void)setNextState;
 - (void)reset;
+- (void)toggleState:(id)sender;
 
 @end

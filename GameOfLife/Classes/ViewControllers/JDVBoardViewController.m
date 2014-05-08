@@ -46,7 +46,6 @@
         CGFloat cellOriginX = (cellColumn * self.lineWidth) + ((cellColumn - 1) * self.cellWidth);
         CGFloat cellOriginY = (cellRow * self.lineWidth) + ((cellRow - 1) * self.cellWidth);
         cell.frame = CGRectMake(cellOriginX, cellOriginY, self.cellWidth, self.cellWidth);
-        cell.backgroundColor = [UIColor orangeColor];
         [self.view addSubview:cell];
     }
 }
