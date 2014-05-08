@@ -52,10 +52,8 @@ NSInteger const kJDVCellsPerRow = 24;
 
 - (void)update:(NSTimer *)timer
 {
-    for (JDVCell *cell in self.cells) {
-        NSSet *neighbors = [self neighborsForCell:cell];
-        [cell setNextStateWithNeighbors:neighbors];
-    }
+    [self setNextStateForCells];
+    [self advanceCellsToNextState];
 }
 
 - (void)reset
@@ -121,6 +119,21 @@ NSInteger const kJDVCellsPerRow = 24;
         }
     };
     return neighbors;
+}
+
+- (void)setNextStateForCells
+{
+    for (JDVCell *cell in self.cells) {
+        NSSet *neighbors = [self neighborsForCell:cell];
+        [cell setNextStateWithNeighbors:neighbors];
+    }
+}
+
+- (void)advanceCellsToNextState
+{
+    for (JDVCell *cell in self.cells) {
+        [cell advanceToNextState];
+    }
 }
 
 @end

@@ -26,5 +26,6 @@ typedef enum {
 - (void)toggleState:(id)sender;
 - (void)gameDidStart;
 - (void)gameDidStop;
+- (void)advanceToNextState;
 
 @end

@@ -190,10 +190,7 @@ describe(@"JDVGameOfLifeViewController", ^{
             });
             
             it(@"sets the button to read START", ^{
-                NSLog(@"beforeToggle: %@", _gameOfLifeVC.runButton.titleLabel.text);
-                NSLog(@"gameTimer: %@", _gameOfLifeVC.gameTimer);
                 [_gameOfLifeVC stopGame];
-                NSLog(@"afterToggle: %@", _gameOfLifeVC.runButton.titleLabel.text);
                 expect([_gameOfLifeVC.runButton titleForState:UIControlStateNormal]).to.equal(@"START");
             });
             

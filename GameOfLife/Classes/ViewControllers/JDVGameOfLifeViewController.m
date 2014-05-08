@@ -8,7 +8,7 @@
 
 #import "JDVGameOfLifeViewController.h"
 
-NSInteger const JDVGameOfLifeTimerInterval = 1;
+NSTimeInterval const JDVGameOfLifeTimerInterval = 0.2;
 
 @interface JDVGameOfLifeViewController ()
 

@@ -263,6 +263,52 @@ describe(@"JDVCell", ^{
             });
         });
     });
+    
+    describe(@"when it advances to the next state", ^{
+        context(@"the cell is changing from alive to dead", ^{
+            it(@"sets the current state to dead", ^{
+                _cell = [[JDVCell alloc] init];
+                _cell.currentState = JDVCellStateAlive;
+                _cell.nextState = JDVCellStateDead;
+                
+                [_cell advanceToNextState];
+                expect(_cell.currentState).to.equal(JDVCellStateDead);
+            });
+        });
+        
+        context(@"the cell is changing from dead to alive", ^{
+            it(@"sets the current state to alive", ^{
+                _cell = [[JDVCell alloc] init];
+                _cell.currentState = JDVCellStateDead;
+                _cell.nextState = JDVCellStateAlive;
+                
+                [_cell advanceToNextState];
+                expect(_cell.currentState).to.equal(JDVCellStateAlive);
+            });
+        });
+        
+        context(@"the cell is staying alive", ^{
+            it(@"sets the current state to alive", ^{
+                _cell = [[JDVCell alloc] init];
+                _cell.currentState = JDVCellStateAlive;
+                _cell.nextState = JDVCellStateAlive;
+                
+                [_cell advanceToNextState];
+                expect(_cell.currentState).to.equal(JDVCellStateAlive);
+            });
+        });
+        
+        context(@"the cell is staying dead", ^{
+            it(@"sets the current state to dead", ^{
+                _cell = [[JDVCell alloc] init];
+                _cell.currentState = JDVCellStateDead;
+                _cell.nextState = JDVCellStateDead;
+                
+                [_cell advanceToNextState];
+                expect(_cell.currentState).to.equal(JDVCellStateDead);
+            });
+        });
+    });
 });
 
 SpecEnd

@@ -59,6 +59,15 @@ NSString *const JDVCellColumn = @"column";
     self.userInteractionEnabled = TRUE;
 }
 
+- (void)advanceToNextState
+{
+    if (self.nextState == JDVCellStateDead) {
+        [self setDead];
+    } else {
+        [self setAlive];
+    }
+}
+
 #pragma mark - private methods
 
 - (void)setDead
@@ -78,7 +87,6 @@ NSString *const JDVCellColumn = @"column";
     NSInteger numberOfLivingCells = 0;
     
     for (JDVCell *cell in cells) {
-        NSLog(@"cellstate = %d", cell.currentState);
         if (cell.currentState == JDVCellStateAlive) {
             numberOfLivingCells++;
         }

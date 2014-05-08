@@ -8,7 +8,7 @@
 
 #import "JDVBoardViewController.h"
 
-extern NSInteger const JDVGameOfLifeTimerInterval;
+extern NSTimeInterval const JDVGameOfLifeTimerInterval;
 
 @interface JDVGameOfLifeViewController : UIViewController
 
