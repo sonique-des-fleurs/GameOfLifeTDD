@@ -16,7 +16,7 @@ typedef enum {
 
 @interface JDVCell : UIButton
 
-@property (assign, nonatomic) NSDictionary *boardLocation;
+@property (strong, nonatomic) NSDictionary *boardLocation;
 @property (assign, nonatomic) JDVCellState currentState;
 
 - (id)initWithBoardLocation:(NSDictionary *)location;
