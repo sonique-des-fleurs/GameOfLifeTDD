@@ -49,62 +49,132 @@ describe(@"JDVCell", ^{
         });
     });
     
-    xdescribe(@"when it sets the next state", ^{
+    describe(@"when it sets the next state", ^{
+        __block NSSet *_neigbors;
+        __block id _mockCell1;
+        __block id _mockCell2;
+        __block id _mockCell3;
+        __block id _mockCell4;
+        __block id _mockCell5;
+        
+        beforeEach(^{
+            _cell = [[JDVCell alloc] init];
+            _mockCell1 = [OCMockObject mockForClass:[JDVCell class]];
+            _mockCell2 = [OCMockObject mockForClass:[JDVCell class]];
+            _mockCell3 = [OCMockObject mockForClass:[JDVCell class]];
+            _mockCell4 = [OCMockObject mockForClass:[JDVCell class]];
+            _mockCell5 = [OCMockObject mockForClass:[JDVCell class]];
+            _neigbors = [NSSet setWithObjects:_mockCell1, _mockCell2, _mockCell3, _mockCell4, _mockCell5, nil];
+        });
+        
         context(@"living cell", ^{
-            context(@"no living neighbors", ^{
-                it(@"will be dead", ^{
-                    
-                });
+            beforeEach(^{
+                _cell.currentState = JDVCellStateAlive;
+            });
+
+            it(@"will be dead when none of its neighbors are alive", ^{
+                [[[_mockCell1 stub] andReturnValue:@(JDVCellStateDead)] currentState];
+                [[[_mockCell2 stub] andReturnValue:@(JDVCellStateDead)] currentState];
+                [[[_mockCell3 stub] andReturnValue:@(JDVCellStateDead)] currentState];
+                [[[_mockCell4 stub] andReturnValue:@(JDVCellStateDead)] currentState];
+                [[[_mockCell5 stub] andReturnValue:@(JDVCellStateDead)] currentState];
+                
+                [_cell setNextStateWithNeighbors:_neigbors];
+                expect(_cell.nextState).to.equal(JDVCellStateDead);
             });
             
-            context(@"1 living neighbor", ^{
-                it(@"will be dead", ^{
-                    
-                });
+            it(@"will be dead when it has 1 living neighbor", ^{
+                [[[_mockCell1 stub] andReturnValue:@(JDVCellStateAlive)] currentState];
+                [[[_mockCell2 stub] andReturnValue:@(JDVCellStateDead)] currentState];
+                [[[_mockCell3 stub] andReturnValue:@(JDVCellStateDead)] currentState];
+                [[[_mockCell4 stub] andReturnValue:@(JDVCellStateDead)] currentState];
+                [[[_mockCell5 stub] andReturnValue:@(JDVCellStateDead)] currentState];
+                
+                [_cell setNextStateWithNeighbors:_neigbors];
+                expect(_cell.nextState).to.equal(JDVCellStateDead);
             });
             
-            context(@"2 living neighbors", ^{
-                it(@"will be alive", ^{
-                    
-                });
+            it(@"will be alive when it has 2 living neighbors", ^{
+                [[[_mockCell1 stub] andReturnValue:@(JDVCellStateAlive)] currentState];
+                [[[_mockCell2 stub] andReturnValue:@(JDVCellStateAlive)] currentState];
+                [[[_mockCell3 stub] andReturnValue:@(JDVCellStateDead)] currentState];
+                [[[_mockCell4 stub] andReturnValue:@(JDVCellStateDead)] currentState];
+                [[[_mockCell5 stub] andReturnValue:@(JDVCellStateDead)] currentState];
+                
+                [_cell setNextStateWithNeighbors:_neigbors];
+                expect(_cell.nextState).to.equal(JDVCellStateAlive);
             });
             
-            context(@"3 living neighbors", ^{
-                it(@"will be alive", ^{
-                    
-                });
+            it(@"will be alive when it has 3 living neighbors", ^{
+                [[[_mockCell1 stub] andReturnValue:@(JDVCellStateAlive)] currentState];
+                [[[_mockCell2 stub] andReturnValue:@(JDVCellStateAlive)] currentState];
+                [[[_mockCell3 stub] andReturnValue:@(JDVCellStateAlive)] currentState];
+                [[[_mockCell4 stub] andReturnValue:@(JDVCellStateDead)] currentState];
+                [[[_mockCell5 stub] andReturnValue:@(JDVCellStateDead)] currentState];
+                
+                [_cell setNextStateWithNeighbors:_neigbors];
+                expect(_cell.nextState).to.equal(JDVCellStateAlive);
             });
             
-            context(@"4 living neighbors", ^{
-                it(@"will be dead", ^{
-                    
-                });
+            it(@"will be dead when it has 4 living neighbors", ^{
+                [[[_mockCell1 stub] andReturnValue:@(JDVCellStateAlive)] currentState];
+                [[[_mockCell2 stub] andReturnValue:@(JDVCellStateAlive)] currentState];
+                [[[_mockCell3 stub] andReturnValue:@(JDVCellStateAlive)] currentState];
+                [[[_mockCell4 stub] andReturnValue:@(JDVCellStateAlive)] currentState];
+                [[[_mockCell5 stub] andReturnValue:@(JDVCellStateDead)] currentState];
+                
+                [_cell setNextStateWithNeighbors:_neigbors];
+                expect(_cell.nextState).to.equal(JDVCellStateDead);
             });
         });
         
         context(@"dead cell", ^{
-            context(@"no living neighbors", ^{
-                it(@"will be dead", ^{
-                    
-                });
+            beforeEach(^{
+                _cell.currentState = JDVCellStateDead;
             });
             
-            context(@"2 living neighbors", ^{
-                it(@"will be dead", ^{
-                    
-                });
+            it(@"will be dead when none of its neighbors are alive", ^{
+                [[[_mockCell1 stub] andReturnValue:@(JDVCellStateDead)] currentState];
+                [[[_mockCell2 stub] andReturnValue:@(JDVCellStateDead)] currentState];
+                [[[_mockCell3 stub] andReturnValue:@(JDVCellStateDead)] currentState];
+                [[[_mockCell4 stub] andReturnValue:@(JDVCellStateDead)] currentState];
+                [[[_mockCell5 stub] andReturnValue:@(JDVCellStateDead)] currentState];
+                
+                [_cell setNextStateWithNeighbors:_neigbors];
+                expect(_cell.nextState).to.equal(JDVCellStateDead);
             });
             
-            context(@"3 living neighbors", ^{
-                it(@"will be alive", ^{
-                    
-                });
+            it(@"will be dead when it has 2 living neighbors", ^{
+                [[[_mockCell1 stub] andReturnValue:@(JDVCellStateAlive)] currentState];
+                [[[_mockCell2 stub] andReturnValue:@(JDVCellStateAlive)] currentState];
+                [[[_mockCell3 stub] andReturnValue:@(JDVCellStateDead)] currentState];
+                [[[_mockCell4 stub] andReturnValue:@(JDVCellStateDead)] currentState];
+                [[[_mockCell5 stub] andReturnValue:@(JDVCellStateDead)] currentState];
+                
+                [_cell setNextStateWithNeighbors:_neigbors];
+                expect(_cell.nextState).to.equal(JDVCellStateDead);
             });
             
-            context(@"4 living neighbors", ^{
-                it(@"will be dead", ^{
-                    
-                });
+            it(@"will be alive when it has 3 living neighbors", ^{
+                [[[_mockCell1 stub] andReturnValue:@(JDVCellStateAlive)] currentState];
+                [[[_mockCell2 stub] andReturnValue:@(JDVCellStateAlive)] currentState];
+                [[[_mockCell3 stub] andReturnValue:@(JDVCellStateAlive)] currentState];
+                [[[_mockCell4 stub] andReturnValue:@(JDVCellStateDead)] currentState];
+                [[[_mockCell5 stub] andReturnValue:@(JDVCellStateDead)] currentState];
+                
+                [_cell setNextStateWithNeighbors:_neigbors];
+                expect(_cell.nextState).to.equal(JDVCellStateAlive);
+            });
+            
+            it(@"will be dead when it has 4 living neighbors", ^{
+                [[[_mockCell1 stub] andReturnValue:@(JDVCellStateAlive)] currentState];
+                [[[_mockCell2 stub] andReturnValue:@(JDVCellStateAlive)] currentState];
+                [[[_mockCell3 stub] andReturnValue:@(JDVCellStateAlive)] currentState];
+                [[[_mockCell4 stub] andReturnValue:@(JDVCellStateAlive)] currentState];
+                [[[_mockCell5 stub] andReturnValue:@(JDVCellStateDead)] currentState];
+                
+                [_cell setNextStateWithNeighbors:_neigbors];
+                expect(_cell.nextState).to.equal(JDVCellStateDead);
             });
         });
     });

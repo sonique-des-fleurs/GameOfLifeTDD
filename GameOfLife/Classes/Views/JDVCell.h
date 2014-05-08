@@ -10,14 +10,15 @@ extern NSString *const JDVCellRow;
 extern NSString *const JDVCellColumn;
 
 typedef enum {
-    JDVCellStateAlive,
-    JDVCellStateDead
+    JDVCellStateDead,
+    JDVCellStateAlive
 } JDVCellState;
 
 @interface JDVCell : UIButton
 
 @property (strong, nonatomic) NSDictionary *boardLocation;
 @property (assign, nonatomic) JDVCellState currentState;
+@property (assign, nonatomic) JDVCellState nextState;
 
 - (id)initWithBoardLocation:(NSDictionary *)location;
 - (void)setNextStateWithNeighbors:(NSSet *)neighbors;

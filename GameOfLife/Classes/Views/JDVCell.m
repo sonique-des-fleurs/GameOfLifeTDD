@@ -31,7 +31,8 @@ NSString *const JDVCellColumn = @"column";
 
 - (void)setNextStateWithNeighbors:(NSSet *)neighbors
 {
-    //
+    NSInteger numberOfLivingNeighbors = [self numberOfLivingCells:neighbors];
+    [self setNextStateGivenNumberOfLivingNeighbors:numberOfLivingNeighbors];
 }
 
 - (void)reset
@@ -70,6 +71,37 @@ NSString *const JDVCellColumn = @"column";
 {
     self.currentState = JDVCellStateAlive;
     self.backgroundColor = [UIColor blackColor];
+}
+
+- (NSInteger)numberOfLivingCells:(NSSet *)cells
+{
+    NSInteger numberOfLivingCells = 0;
+    
+    for (JDVCell *cell in cells) {
+        NSLog(@"cellstate = %d", cell.currentState);
+        if (cell.currentState == JDVCellStateAlive) {
+            numberOfLivingCells++;
+        }
+    }
+    
+    return numberOfLivingCells;
+}
+
+- (void)setNextStateGivenNumberOfLivingNeighbors:(NSInteger)numberOfLivingNeighbors
+{
+    if (self.currentState == JDVCellStateAlive) {
+        if (numberOfLivingNeighbors == 2 || numberOfLivingNeighbors == 3) {
+            self.nextState = JDVCellStateAlive;
+        } else {
+            self.nextState = JDVCellStateDead;
+        }
+    } else {
+        if (numberOfLivingNeighbors == 3) {
+            self.nextState = JDVCellStateAlive;
+        } else {
+            self.nextState = JDVCellStateDead;
+        }
+    }
 }
 
 @end
