@@ -35,6 +35,10 @@ describe(@"JDVCell", ^{
         it(@"sets the value of the location property", ^{
             expect(_cell.boardLocation).notTo.beNil();
         });
+        
+        it(@"assigns DEAD to the currentState property", ^{
+            expect(_cell.currentState).to.equal(JDVCellStateDead);
+        });
     });
     
     describe(@"when it sets the next state", ^{
@@ -93,6 +97,28 @@ describe(@"JDVCell", ^{
                 it(@"will be dead", ^{
                     
                 });
+            });
+        });
+    });
+
+    describe(@"when it resets", ^{
+        beforeEach(^{
+            _cell = [[JDVCell alloc] init];
+        });
+        
+        context(@"living cell", ^{
+            it(@"sets the current state to DEAD", ^{
+                _cell.currentState = JDVCellStateAlive;
+                [_cell reset];
+                expect(_cell.currentState).to.equal(JDVCellStateDead);
+            });
+        });
+        
+        context(@"dead cell", ^{
+            it(@"sets the current state to DEAD", ^{
+                _cell.currentState = JDVCellStateDead;
+                [_cell reset];
+                expect(_cell.currentState).to.equal(JDVCellStateDead);
             });
         });
     });

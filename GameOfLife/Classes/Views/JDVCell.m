@@ -18,6 +18,7 @@ NSString *const JDVCellColumn = @"column";
     self = [super init];
     if (self) {
         _boardLocation = location;
+        _currentState = JDVCellStateDead;
     }
     return self;
 }
@@ -34,7 +35,7 @@ NSString *const JDVCellColumn = @"column";
 
 - (void)reset
 {
-    //
+    self.currentState = JDVCellStateDead;
 }
 
 @end
