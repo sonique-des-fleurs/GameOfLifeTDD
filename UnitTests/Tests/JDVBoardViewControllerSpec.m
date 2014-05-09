@@ -11,7 +11,7 @@
 
 SpecBegin(JDVBoardViewController)
 describe(@"JDVBoardViewController", ^{
-    describe(@"when it is created with 1 cell per row", ^{
+    describe(@"when it is created with 1 cell per side", ^{
         __block JDVBoardViewController *_boardVC;
         __block NSMutableArray *_allCellLocations;
 
@@ -19,7 +19,7 @@ describe(@"JDVBoardViewController", ^{
             _boardVC = [[JDVBoardViewController alloc] initWithCellsPerSide:1];
         });
         
-        it(@"sets the value of the numberOfCellsPerRow property", ^{
+        it(@"sets the value of the numberOfCellsPerSide property", ^{
             expect(_boardVC.numberOfCellsPerSide).to.equal(1);
         });
         
@@ -36,7 +36,7 @@ describe(@"JDVBoardViewController", ^{
         });
     });
     
-    describe(@"when it is created with 2 cells per row", ^{
+    describe(@"when it is created with 2 cells per side", ^{
         __block JDVBoardViewController *_boardVC;
         __block NSMutableArray *_allCellLocations;
 
@@ -49,7 +49,7 @@ describe(@"JDVBoardViewController", ^{
             }
         });
         
-        it(@"sets the value of the numberOfCellsPerRow property", ^{
+        it(@"sets the value of the numberOfCellsPerSide property", ^{
             expect(_boardVC.numberOfCellsPerSide).to.equal(2);
         });
         
@@ -85,15 +85,15 @@ describe(@"JDVBoardViewController", ^{
             expect(_boardVC.cells).notTo.beNil();
         });
         
-        it(@"sets the value of the lineWidth property", ^{
+        it(@"sets the value of the lineSize property", ^{
             expect(_boardVC.lineSize).notTo.equal(0);
         });
         
-        it(@"sets the value of the numberOfCellsPerRow property", ^{
+        it(@"sets the value of the numberOfCellsPerSide property", ^{
             expect(_boardVC.numberOfCellsPerSide).notTo.equal(0);
         });
         
-        it(@"sets the value of the boardWidth property", ^{
+        it(@"sets the value of the boardSize property", ^{
             expect(_boardVC.boardSize).notTo.equal(0);
         });
         
@@ -116,18 +116,18 @@ describe(@"JDVBoardViewController", ^{
             expect(_boardVC.view.backgroundColor).to.equal([UIColor orangeColor]);
         });
         
-        context(@"board with width 10.0", ^{
+        context(@"board with size 10.0", ^{
             beforeEach(^{
                 _boardVC.boardSize = 10;
                 _boardVC.numberOfCellsPerSide = 2;
             });
             
-            context(@"board with lineWidth 1.0", ^{
+            context(@"board with lineSize 1.0", ^{
                 beforeEach(^{
                     _boardVC.lineSize = 1;
                 });
                 
-                it(@"calculates and sets the value of the cellWidth property", ^{
+                it(@"calculates and sets the value of the cellSize property", ^{
                     [_boardVC view];
                     expect(_boardVC.cellSize).to.equal(3.5);
                 });
@@ -163,12 +163,12 @@ describe(@"JDVBoardViewController", ^{
                 });
             });
             
-            context(@"board with lineWidth 2.0", ^{
+            context(@"board with lineSize 2.0", ^{
                 beforeEach(^{
                     _boardVC.lineSize = 2;
                 });
                 
-                it(@"calculates and sets the value of the cellWidth property", ^{
+                it(@"calculates and sets the value of the cellSize property", ^{
                     [_boardVC view];
                     expect(_boardVC.cellSize).to.equal(2);
                 });
