@@ -14,7 +14,7 @@ typedef enum {
     JDVCellStateAlive
 } JDVCellState;
 
-@interface JDVCell : UIButton
+@interface JDVCell : UIControl
 
 @property (strong, nonatomic) NSDictionary *boardLocation;
 @property (assign, nonatomic) JDVCellState currentState;
