@@ -18,7 +18,7 @@ NSString *const JDVCellColumn = @"column";
     self = [super init];
     if (self) {
         _boardLocation = location;
-        [self setDead];
+        self.currentState = JDVCellStateDead;
         [self addTarget:self action:@selector(toggleState:) forControlEvents:UIControlEventTouchUpInside];
     }
     return self;
@@ -43,9 +43,9 @@ NSString *const JDVCellColumn = @"column";
 - (void)toggleState:(id)sender
 {
     if (self.currentState == JDVCellStateAlive) {
-        [self setDead];
+        self.currentState = JDVCellStateDead;
     } else {
-        [self setAlive];
+        self.currentState = JDVCellStateAlive;
     }
 }
 
@@ -61,26 +61,20 @@ NSString *const JDVCellColumn = @"column";
 
 - (void)advanceToNextState
 {
-    if (self.nextState == JDVCellStateDead) {
-        [self setDead];
+    self.currentState = self.nextState;
+}
+
+- (void)setCurrentState:(JDVCellState)currentState
+{
+    _currentState = currentState;
+    if (currentState == JDVCellStateAlive) {
+        self.backgroundColor = [UIColor blackColor];
     } else {
-        [self setAlive];
+        self.backgroundColor = [UIColor lightGrayColor];
     }
 }
 
 #pragma mark - private methods
-
-- (void)setDead
-{
-    self.currentState = JDVCellStateDead;
-    self.backgroundColor = [UIColor lightGrayColor];
-}
-
-- (void)setAlive
-{
-    self.currentState = JDVCellStateAlive;
-    self.backgroundColor = [UIColor blackColor];
-}
 
 - (NSInteger)numberOfLivingCells:(NSSet *)cells
 {
