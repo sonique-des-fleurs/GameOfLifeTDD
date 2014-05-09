@@ -9,9 +9,9 @@
 #import "JDVBoardViewController.h"
 #import "JDVCell.h"
 
-CGFloat const kJDVBoardWidth = 728;
-CGFloat const kJDVLineWidth = 2;
-NSInteger const kJDVCellsPerRow = 24;
+CGFloat const kJDVBoardSize = 728;
+CGFloat const kJDVLineSize = 2;
+NSInteger const kJDVCellsPerSide = 24;
 
 @interface JDVBoardViewController ()
 
@@ -25,8 +25,8 @@ NSInteger const kJDVCellsPerRow = 24;
     if (self) {
         _numberOfCellsPerSide = numberOfCellsPerSide;
         _boardColor = [UIColor greenColor];
-        _boardSize = kJDVBoardWidth;
-        _lineSize = kJDVLineWidth;
+        _boardSize = kJDVBoardSize;
+        _lineSize = kJDVLineSize;
         [self initializeCells];
     }
     return self;
@@ -34,7 +34,7 @@ NSInteger const kJDVCellsPerRow = 24;
 
 - (id)init
 {
-    return [self initWithCellsPerSide:kJDVCellsPerRow];
+    return [self initWithCellsPerSide:kJDVCellsPerSide];
 }
 
 - (void)viewDidLoad
