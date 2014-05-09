@@ -30,7 +30,7 @@ NSTimeInterval const JDVGameOfLifeTimerInterval = 0.2;
 {
     [super viewDidLoad];
     
-    self.boardVC.view.frame = CGRectMake(20, 60, self.boardVC.boardWidth, self.boardVC.boardWidth);
+    self.boardVC.view.frame = CGRectMake(20, 60, self.boardVC.boardSize, self.boardVC.boardSize);
     [self.view addSubview:self.boardVC.view];
 }
 

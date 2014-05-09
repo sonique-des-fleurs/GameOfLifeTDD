@@ -19,14 +19,14 @@ NSInteger const kJDVCellsPerRow = 24;
 
 @implementation JDVBoardViewController
 
-- (id)initWithCellsPerRow:(NSInteger)numberOfCellsPerRow
+- (id)initWithCellsPerSide:(NSInteger)numberOfCellsPerSide
 {
     self = [super init];
     if (self) {
-        _numberOfCellsPerRow = numberOfCellsPerRow;
+        _numberOfCellsPerSide = numberOfCellsPerSide;
         _boardColor = [UIColor greenColor];
-        _boardWidth = kJDVBoardWidth;
-        _lineWidth = kJDVLineWidth;
+        _boardSize = kJDVBoardWidth;
+        _lineSize = kJDVLineWidth;
         [self initializeCells];
     }
     return self;
@@ -34,7 +34,7 @@ NSInteger const kJDVCellsPerRow = 24;
 
 - (id)init
 {
-    return [self initWithCellsPerRow:kJDVCellsPerRow];
+    return [self initWithCellsPerSide:kJDVCellsPerRow];
 }
 
 - (void)viewDidLoad
@@ -42,7 +42,7 @@ NSInteger const kJDVCellsPerRow = 24;
     [super viewDidLoad];
     
     self.view.backgroundColor = self.boardColor;
-    self.cellWidth = [self calculatedCellWidth];
+    self.cellSize = [self calculatedCellWidth];
     
     for (JDVCell *cell in self.cells) {
         [self setFrameForCell:cell];
@@ -82,8 +82,8 @@ NSInteger const kJDVCellsPerRow = 24;
 - (void)initializeCells
 {
     NSMutableArray *cells = [NSMutableArray array];
-    for (int row = 0; row < self.numberOfCellsPerRow; row++) {
-        for (int column = 0; column < self.numberOfCellsPerRow; column++) {
+    for (int row = 0; row < self.numberOfCellsPerSide; row++) {
+        for (int column = 0; column < self.numberOfCellsPerSide; column++) {
             JDVCell *cell = [[JDVCell alloc] initWithBoardLocation:@{JDVCellRow:@(row + 1), JDVCellColumn:@(column + 1)}];
             [cells addObject:cell];
         };
@@ -93,16 +93,16 @@ NSInteger const kJDVCellsPerRow = 24;
 
 - (CGFloat)calculatedCellWidth
 {
-    return (self.boardWidth - ((self.numberOfCellsPerRow + 1) * self.lineWidth)) / self.numberOfCellsPerRow;
+    return (self.boardSize - ((self.numberOfCellsPerSide + 1) * self.lineSize)) / self.numberOfCellsPerSide;
 }
 
 - (void)setFrameForCell:(JDVCell *)cell
 {
     NSInteger cellColumn = [cell.boardLocation[JDVCellColumn] integerValue];
     NSInteger cellRow = [cell.boardLocation[JDVCellRow] integerValue];
-    CGFloat cellOriginX = (cellColumn * self.lineWidth) + ((cellColumn - 1) * self.cellWidth);
-    CGFloat cellOriginY = (cellRow * self.lineWidth) + ((cellRow - 1) * self.cellWidth);
-    cell.frame = CGRectMake(cellOriginX, cellOriginY, self.cellWidth, self.cellWidth);
+    CGFloat cellOriginX = (cellColumn * self.lineSize) + ((cellColumn - 1) * self.cellSize);
+    CGFloat cellOriginY = (cellRow * self.lineSize) + ((cellRow - 1) * self.cellSize);
+    cell.frame = CGRectMake(cellOriginX, cellOriginY, self.cellSize, self.cellSize);
 }
 
 - (NSSet *)neighborsForCell:(JDVCell *)cell

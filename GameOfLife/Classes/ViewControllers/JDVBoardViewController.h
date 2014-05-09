@@ -10,12 +10,12 @@
 
 @property (strong, nonatomic) NSArray *cells;
 @property (strong, nonatomic) UIColor *boardColor;
-@property (assign, nonatomic) CGFloat boardWidth;
-@property (assign, nonatomic) CGFloat lineWidth;
-@property (assign, nonatomic) NSInteger numberOfCellsPerRow;
-@property (assign, nonatomic) CGFloat cellWidth;
+@property (assign, nonatomic) CGFloat boardSize;
+@property (assign, nonatomic) CGFloat lineSize;
+@property (assign, nonatomic) NSInteger numberOfCellsPerSide;
+@property (assign, nonatomic) CGFloat cellSize;
 
-- (id)initWithCellsPerRow:(NSInteger)numberOfCellsPerRow;
+- (id)initWithCellsPerSide:(NSInteger)numberOfCellsPerSide;
 - (void)reset;
 - (void)update:(NSTimer *)timer;
 - (void)gameDidStart;
