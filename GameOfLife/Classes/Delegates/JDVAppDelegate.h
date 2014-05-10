@@ -10,6 +10,4 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
-- (UIViewController *)appRootVC;
-
 @end

@@ -15,15 +15,9 @@
 {
     self.window = [[UIWindow alloc] init];
     self.window.frame = [[UIScreen mainScreen] bounds];
-    self.window.rootViewController = [self appRootVC];
-    [self.window makeKeyWindow];
-    self.window.hidden = FALSE;
+    self.window.rootViewController = [[JDVGameOfLifeViewController alloc] init];
+    [self.window makeKeyAndVisible];
     return YES;
-}
-
-- (UIViewController *)appRootVC
-{
-    return [[JDVGameOfLifeViewController alloc] init];
 }
 
 @end
