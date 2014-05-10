@@ -21,7 +21,6 @@ extern NSString *const JDVBoardCellsPerSideKey;
 @property (assign, nonatomic) CGFloat cellSize;
 
 - (id)initWithBoardProperties:(NSDictionary *)boardProperties;
-- (id)initWithCellsPerSide:(NSInteger)numberOfCellsPerSide;
 - (void)reset;
 - (void)update:(NSTimer *)timer;
 - (void)gameDidStart;

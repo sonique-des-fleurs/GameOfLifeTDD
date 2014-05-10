@@ -16,7 +16,7 @@ describe(@"JDVBoardViewController", ^{
         __block NSMutableArray *_allCellLocations;
 
         beforeEach(^{
-            _boardVC = [[JDVBoardViewController alloc] initWithCellsPerSide:1];
+            _boardVC = [[JDVBoardViewController alloc] initWithBoardProperties:@{JDVBoardCellsPerSideKey:@(1)}];
         });
         
         it(@"sets the value of the cellsPerSide property", ^{
@@ -41,7 +41,7 @@ describe(@"JDVBoardViewController", ^{
         __block NSMutableArray *_allCellLocations;
 
         beforeEach(^{
-            _boardVC = [[JDVBoardViewController alloc] initWithCellsPerSide:2];
+            _boardVC = [[JDVBoardViewController alloc] initWithBoardProperties:@{JDVBoardCellsPerSideKey:@(2)}];
             
             _allCellLocations = [NSMutableArray array];
             for (JDVCell *cell in _boardVC.cells) {

@@ -9,10 +9,6 @@
 #import "JDVBoardViewController.h"
 #import "JDVCell.h"
 
-static CGFloat const kJDVBoardSize = 728;
-static CGFloat const kJDVLineSize = 2;
-static NSInteger const kJDVCellsPerSide = 24;
-
 NSString *const JDVBoardColorKey = @"boardColor";
 NSString *const JDVBoardSizeKey = @"boardSize";
 NSString *const JDVBoardLineSizeKey = @"lineSize";
@@ -28,19 +24,6 @@ NSString *const JDVBoardCellsPerSideKey = @"cellsPerSide";
         _boardSize = [boardProperties[JDVBoardSizeKey] floatValue];
         _lineSize = [boardProperties[JDVBoardLineSizeKey] floatValue];
         _cellsPerSide = [boardProperties[JDVBoardCellsPerSideKey] integerValue];
-        _cells = @[];
-    }
-    return self;
-}
-
-- (id)initWithCellsPerSide:(NSInteger)numberOfCellsPerSide
-{
-    self = [super init];
-    if (self) {
-        _cellsPerSide = numberOfCellsPerSide;
-        _boardColor = [UIColor greenColor];
-        _boardSize = kJDVBoardSize;
-        _lineSize = kJDVLineSize;
         [self initializeCells];
     }
     return self;
