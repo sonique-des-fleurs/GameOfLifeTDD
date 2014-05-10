@@ -25,6 +25,7 @@ NSString *const JDVBoardCellsPerSideKey = @"cellsPerSide";
         _lineSize = [boardProperties[JDVBoardLineSizeKey] floatValue];
         _cellsPerSide = [boardProperties[JDVBoardCellsPerSideKey] integerValue];
         [self initializeCells];
+        [self setNeighborsForCells];
     }
     return self;
 }
@@ -96,18 +97,11 @@ NSString *const JDVBoardCellsPerSideKey = @"cellsPerSide";
     _cells = cells;
 }
 
-- (CGFloat)calculatedCellWidth
+- (void)setNeighborsForCells
 {
-    return (self.boardSize - ((self.cellsPerSide + 1) * self.lineSize)) / self.cellsPerSide;
-}
-
-- (void)setFrameForCell:(JDVCell *)cell
-{
-    NSInteger cellColumn = [cell.boardLocation[JDVCellColumn] integerValue];
-    NSInteger cellRow = [cell.boardLocation[JDVCellRow] integerValue];
-    CGFloat cellOriginX = (cellColumn * self.lineSize) + ((cellColumn - 1) * self.cellSize);
-    CGFloat cellOriginY = (cellRow * self.lineSize) + ((cellRow - 1) * self.cellSize);
-    cell.frame = CGRectMake(cellOriginX, cellOriginY, self.cellSize, self.cellSize);
+    for (JDVCell *cell in self.cells) {
+        cell.neighbors = [self neighborsForCell:cell];
+    }
 }
 
 - (NSSet *)neighborsForCell:(JDVCell *)cell
@@ -126,11 +120,24 @@ NSString *const JDVBoardCellsPerSideKey = @"cellsPerSide";
     return neighbors;
 }
 
+- (CGFloat)calculatedCellWidth
+{
+    return (self.boardSize - ((self.cellsPerSide + 1) * self.lineSize)) / self.cellsPerSide;
+}
+
+- (void)setFrameForCell:(JDVCell *)cell
+{
+    NSInteger cellColumn = [cell.boardLocation[JDVCellColumn] integerValue];
+    NSInteger cellRow = [cell.boardLocation[JDVCellRow] integerValue];
+    CGFloat cellOriginX = (cellColumn * self.lineSize) + ((cellColumn - 1) * self.cellSize);
+    CGFloat cellOriginY = (cellRow * self.lineSize) + ((cellRow - 1) * self.cellSize);
+    cell.frame = CGRectMake(cellOriginX, cellOriginY, self.cellSize, self.cellSize);
+}
+
 - (void)setNextStateForCells
 {
     for (JDVCell *cell in self.cells) {
-        NSSet *neighbors = [self neighborsForCell:cell];
-        [cell setNextStateWithNeighbors:neighbors];
+        [cell setNextState];
     }
 }
 

@@ -13,7 +13,6 @@ SpecBegin(JDVBoardViewController)
 describe(@"JDVBoardViewController", ^{
     describe(@"when it is created with 1 cell per side", ^{
         __block JDVBoardViewController *_boardVC;
-        __block NSMutableArray *_allCellLocations;
 
         beforeEach(^{
             _boardVC = [[JDVBoardViewController alloc] initWithBoardProperties:@{JDVBoardCellsPerSideKey:@(1)}];
@@ -28,11 +27,16 @@ describe(@"JDVBoardViewController", ^{
         });
         
         it(@"creates a cell at row 1, column 1", ^{
-            _allCellLocations = [NSMutableArray array];
+            NSMutableArray *allCellLocations = [NSMutableArray array];
             for (JDVCell *cell in _boardVC.cells) {
-                [_allCellLocations addObject:cell.boardLocation];
+                [allCellLocations addObject:cell.boardLocation];
             }
-            expect(_allCellLocations).to.contain((@{JDVCellRow: @1, JDVCellColumn: @1}));
+            expect(allCellLocations).to.contain((@{JDVCellRow: @1, JDVCellColumn: @1}));
+        });
+        
+        it(@"sets the neighbors for the cell", ^{
+            JDVCell *cell = _boardVC.cells[0];
+            expect(cell.neighbors).notTo.beNil();
         });
     });
     
@@ -242,118 +246,115 @@ describe(@"JDVBoardViewController", ^{
         });
     });
     
-    describe(@"when it resets", ^{
-        it(@"resets each of the cells", ^{
-            JDVBoardViewController *boardVC = [[JDVBoardViewController alloc] init];
-            id mockCell = [OCMockObject mockForClass:[JDVCell class]];
-            [[mockCell expect] reset];
-            boardVC.cells = @[mockCell];
-            
-            [boardVC reset];
-            [mockCell verify];
-        });
-    });
-    
-    describe(@"when it updates", ^{
+    describe(@"when it sets the neighbors for a cell", ^{
         __block JDVBoardViewController *_boardVC;
+        __block JDVCell *_cell1_1 = [[JDVCell alloc] init];
+        __block JDVCell *_cell1_2 = [[JDVCell alloc] init];
+        __block JDVCell *_cell1_3 = [[JDVCell alloc] init];
+        __block JDVCell *_cell1_4 = [[JDVCell alloc] init];
+        __block JDVCell *_cell2_1 = [[JDVCell alloc] init];
+        __block JDVCell *_cell2_2 = [[JDVCell alloc] init];
+        __block JDVCell *_cell2_3 = [[JDVCell alloc] init];
+        __block JDVCell *_cell2_4 = [[JDVCell alloc] init];
+        __block JDVCell *_cell3_1 = [[JDVCell alloc] init];
+        __block JDVCell *_cell3_2 = [[JDVCell alloc] init];
+        __block JDVCell *_cell3_3 = [[JDVCell alloc] init];
+        __block JDVCell *_cell3_4 = [[JDVCell alloc] init];
+        __block JDVCell *_cell4_1 = [[JDVCell alloc] init];
+        __block JDVCell *_cell4_2 = [[JDVCell alloc] init];
+        __block JDVCell *_cell4_3 = [[JDVCell alloc] init];
+        __block JDVCell *_cell4_4 = [[JDVCell alloc] init];
+        NSArray *cells = @[_cell1_1, _cell1_2, _cell1_3, _cell1_4,
+                           _cell2_1, _cell2_2, _cell2_3, _cell2_4,
+                           _cell3_1, _cell3_2, _cell3_3, _cell3_4,
+                           _cell4_1, _cell4_2, _cell4_3, _cell4_4];
         
         beforeEach(^{
             _boardVC = [[JDVBoardViewController alloc] init];
+            _boardVC.cells = cells;
+            for (JDVCell *cell in cells) {
+                int row = ([cells indexOfObject:cell] / 4) + 1;
+                int column = ([cells indexOfObject:cell] % 4) + 1;
+                cell.boardLocation = @{JDVCellRow:@(row), JDVCellColumn:@(column)};
+            }
+        });
+
+        it(@"sets the neighbors of an interior cell to be the 8 surrounding cells", ^{
+            id mockInteriorCell = [OCMockObject partialMockForObject:_cell3_3];
+            NSSet *neighbors = [NSSet setWithObjects:_cell2_2, _cell2_3, _cell2_4, _cell3_2, _cell3_4, _cell4_2, _cell4_3, _cell4_4, nil];
+            [[mockInteriorCell expect] setNeighbors:neighbors];
+            
+            [_boardVC setNeighborsForCells];
+            [mockInteriorCell verify];
         });
         
-        context(@"before advancing each cell to the next state", ^{
-            __block JDVCell *_cell1_1 = [[JDVCell alloc] init];
-            __block JDVCell *_cell1_2 = [[JDVCell alloc] init];
-            __block JDVCell *_cell1_3 = [[JDVCell alloc] init];
-            __block JDVCell *_cell1_4 = [[JDVCell alloc] init];
-            __block JDVCell *_cell2_1 = [[JDVCell alloc] init];
-            __block JDVCell *_cell2_2 = [[JDVCell alloc] init];
-            __block JDVCell *_cell2_3 = [[JDVCell alloc] init];
-            __block JDVCell *_cell2_4 = [[JDVCell alloc] init];
-            __block JDVCell *_cell3_1 = [[JDVCell alloc] init];
-            __block JDVCell *_cell3_2 = [[JDVCell alloc] init];
-            __block JDVCell *_cell3_3 = [[JDVCell alloc] init];
-            __block JDVCell *_cell3_4 = [[JDVCell alloc] init];
-            __block JDVCell *_cell4_1 = [[JDVCell alloc] init];
-            __block JDVCell *_cell4_2 = [[JDVCell alloc] init];
-            __block JDVCell *_cell4_3 = [[JDVCell alloc] init];
-            __block JDVCell *_cell4_4 = [[JDVCell alloc] init];
-            NSArray *cells = @[_cell1_1, _cell1_2, _cell1_3, _cell1_4,
-                               _cell2_1, _cell2_2, _cell2_3, _cell2_4,
-                               _cell3_1, _cell3_2, _cell3_3, _cell3_4,
-                               _cell4_1, _cell4_2, _cell4_3, _cell4_4];
+        it(@"sets the neighbors of an edge cell to be the 5 surrounding cells", ^{
+            id mockEdgeCell = [OCMockObject partialMockForObject:_cell3_1];
+            NSSet *neighbors = [NSSet setWithObjects:_cell2_1, _cell2_2, _cell3_2, _cell4_1, _cell4_2, nil];
+            [[mockEdgeCell expect] setNeighbors:neighbors];
             
-            beforeEach(^{
-                _boardVC.cells = cells;
-                for (JDVCell *cell in cells) {
-                    int row = ([cells indexOfObject:cell] / 4) + 1;
-                    int column = ([cells indexOfObject:cell] % 4) + 1;
-                    cell.boardLocation = @{JDVCellRow:@(row), JDVCellColumn:@(column)};
-                }
-            });
-            
-            it(@"sends an interior cell the 8 surrounding neighbors in order to set the next state", ^{
-                id mockInteriorCell = [OCMockObject partialMockForObject:_cell3_3];
-                NSSet *neighbors = [NSSet setWithObjects:_cell2_2, _cell2_3, _cell2_4, _cell3_2, _cell3_4, _cell4_2, _cell4_3, _cell4_4, nil];
-                [[mockInteriorCell expect] setNextStateWithNeighbors:neighbors];
-                
-                [_boardVC update:nil];
-                [mockInteriorCell verify];
-            });
-            
-            it(@"sends a cell on an edge the 5 surrounding neighbors in order to set the next state", ^{
-                id mockEdgeCell = [OCMockObject partialMockForObject:_cell3_1];
-                NSSet *neighbors = [NSSet setWithObjects:_cell2_1, _cell2_2, _cell3_2, _cell4_1, _cell4_2, nil];
-                [[mockEdgeCell expect] setNextStateWithNeighbors:neighbors];
-                
-                [_boardVC update:nil];
-                [mockEdgeCell verify];
-            });
-            
-            it(@"sends a cell in a corner the 3 surrounding neighbors in order to set the next state", ^{
-                id mockCornerCell = [OCMockObject partialMockForObject:_cell1_4];
-                NSSet *neighbors = [NSSet setWithObjects:_cell1_3, _cell2_3, _cell2_4, nil];
-                [[mockCornerCell expect] setNextStateWithNeighbors:neighbors];
-                
-                [_boardVC update:nil];
-                [mockCornerCell verify];
-            });
+            [_boardVC setNeighborsForCells];
+            [mockEdgeCell verify];
         });
         
-        context(@"after each cell has determined the next state", ^{
-            it(@"advances each cell to the next state", ^{
-                id mockCell = [OCMockObject niceMockForClass:[JDVCell class]];
-                [[mockCell expect] advanceToNextState];
-                _boardVC.cells = @[mockCell];
-                
-                [_boardVC update:nil];
-                [mockCell verify];
-            });
+        it(@"sets the neighbors of a corner cell to be the 3 surrounding cells", ^{
+            id mockCornerCell = [OCMockObject partialMockForObject:_cell1_4];
+            NSSet *neighbors = [NSSet setWithObjects:_cell1_3, _cell2_3, _cell2_4, nil];
+            [[mockCornerCell expect] setNeighbors:neighbors];
+            
+            [_boardVC setNeighborsForCells];
+            [mockCornerCell verify];
         });
     });
     
-    describe(@"when the game starts", ^{
-        it(@"tells each of the cells", ^{
-            JDVBoardViewController *boardVC = [[JDVBoardViewController alloc] init];
-            id mockCell = [OCMockObject mockForClass:[JDVCell class]];
-            [[mockCell expect] gameDidStart];
-            boardVC.cells = @[mockCell];
-            
-            [boardVC gameDidStart];
-            [mockCell verify];
-        });
+    it(@"updates each of the cells", ^{
+        JDVBoardViewController *boardVC = [[JDVBoardViewController alloc] init];
+        id mockCell = [OCMockObject niceMockForClass:[JDVCell class]];
+        [[mockCell expect] setNextState];
+        boardVC.cells = @[mockCell];
+        
+        [boardVC update:nil];
+        [mockCell verify];
     });
     
-    describe(@"when the game stops", ^{
-        it(@"tells each of the cells", ^{
-            JDVBoardViewController *boardVC = [[JDVBoardViewController alloc] init];
-            id mockCell = [OCMockObject mockForClass:[JDVCell class]];
-            [[mockCell expect] gameDidStop];
-            boardVC.cells = @[mockCell];
-            
-            [boardVC gameDidStop];
-            [mockCell verify];
-        });
+    it(@"advances each cell to the next state", ^{
+        JDVBoardViewController *boardVC = [[JDVBoardViewController alloc] init];
+        id mockCell = [OCMockObject niceMockForClass:[JDVCell class]];
+        [[mockCell expect] advanceToNextState];
+        boardVC.cells = @[mockCell];
+        
+        [boardVC update:nil];
+        [mockCell verify];
+    });
+    
+    it(@"resets each of the cells", ^{
+        JDVBoardViewController *boardVC = [[JDVBoardViewController alloc] init];
+        id mockCell = [OCMockObject mockForClass:[JDVCell class]];
+        [[mockCell expect] reset];
+        boardVC.cells = @[mockCell];
+        
+        [boardVC reset];
+        [mockCell verify];
+    });
+    
+    it(@"tells each of the cells that the game has started", ^{
+        JDVBoardViewController *boardVC = [[JDVBoardViewController alloc] init];
+        id mockCell = [OCMockObject mockForClass:[JDVCell class]];
+        [[mockCell expect] gameDidStart];
+        boardVC.cells = @[mockCell];
+        
+        [boardVC gameDidStart];
+        [mockCell verify];
+    });
+    
+    it(@"tells each of the cells that the game has stopped", ^{
+        JDVBoardViewController *boardVC = [[JDVBoardViewController alloc] init];
+        id mockCell = [OCMockObject mockForClass:[JDVCell class]];
+        [[mockCell expect] gameDidStop];
+        boardVC.cells = @[mockCell];
+        
+        [boardVC gameDidStop];
+        [mockCell verify];
     });
 });
 

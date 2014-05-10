@@ -50,7 +50,6 @@ describe(@"JDVCell", ^{
     });
     
     describe(@"when it sets the next state", ^{
-        __block NSSet *_neigbors;
         __block id _mockCell1;
         __block id _mockCell2;
         __block id _mockCell3;
@@ -64,7 +63,7 @@ describe(@"JDVCell", ^{
             _mockCell3 = [OCMockObject mockForClass:[JDVCell class]];
             _mockCell4 = [OCMockObject mockForClass:[JDVCell class]];
             _mockCell5 = [OCMockObject mockForClass:[JDVCell class]];
-            _neigbors = [NSSet setWithObjects:_mockCell1, _mockCell2, _mockCell3, _mockCell4, _mockCell5, nil];
+            _cell.neighbors = [NSSet setWithObjects:_mockCell1, _mockCell2, _mockCell3, _mockCell4, _mockCell5, nil];
         });
         
         context(@"living cell", ^{
@@ -79,7 +78,7 @@ describe(@"JDVCell", ^{
                 [[[_mockCell4 stub] andReturnValue:@(JDVCellStateDead)] currentState];
                 [[[_mockCell5 stub] andReturnValue:@(JDVCellStateDead)] currentState];
                 
-                [_cell setNextStateWithNeighbors:_neigbors];
+                [_cell setNextState];
                 expect(_cell.nextState).to.equal(JDVCellStateDead);
             });
             
@@ -90,7 +89,7 @@ describe(@"JDVCell", ^{
                 [[[_mockCell4 stub] andReturnValue:@(JDVCellStateDead)] currentState];
                 [[[_mockCell5 stub] andReturnValue:@(JDVCellStateDead)] currentState];
                 
-                [_cell setNextStateWithNeighbors:_neigbors];
+                [_cell setNextState];
                 expect(_cell.nextState).to.equal(JDVCellStateDead);
             });
             
@@ -101,7 +100,7 @@ describe(@"JDVCell", ^{
                 [[[_mockCell4 stub] andReturnValue:@(JDVCellStateDead)] currentState];
                 [[[_mockCell5 stub] andReturnValue:@(JDVCellStateDead)] currentState];
                 
-                [_cell setNextStateWithNeighbors:_neigbors];
+                [_cell setNextState];
                 expect(_cell.nextState).to.equal(JDVCellStateAlive);
             });
             
@@ -112,7 +111,7 @@ describe(@"JDVCell", ^{
                 [[[_mockCell4 stub] andReturnValue:@(JDVCellStateDead)] currentState];
                 [[[_mockCell5 stub] andReturnValue:@(JDVCellStateDead)] currentState];
                 
-                [_cell setNextStateWithNeighbors:_neigbors];
+                [_cell setNextState];
                 expect(_cell.nextState).to.equal(JDVCellStateAlive);
             });
             
@@ -123,7 +122,7 @@ describe(@"JDVCell", ^{
                 [[[_mockCell4 stub] andReturnValue:@(JDVCellStateAlive)] currentState];
                 [[[_mockCell5 stub] andReturnValue:@(JDVCellStateDead)] currentState];
                 
-                [_cell setNextStateWithNeighbors:_neigbors];
+                [_cell setNextState];
                 expect(_cell.nextState).to.equal(JDVCellStateDead);
             });
         });
@@ -140,7 +139,7 @@ describe(@"JDVCell", ^{
                 [[[_mockCell4 stub] andReturnValue:@(JDVCellStateDead)] currentState];
                 [[[_mockCell5 stub] andReturnValue:@(JDVCellStateDead)] currentState];
                 
-                [_cell setNextStateWithNeighbors:_neigbors];
+                [_cell setNextState];
                 expect(_cell.nextState).to.equal(JDVCellStateDead);
             });
             
@@ -151,7 +150,7 @@ describe(@"JDVCell", ^{
                 [[[_mockCell4 stub] andReturnValue:@(JDVCellStateDead)] currentState];
                 [[[_mockCell5 stub] andReturnValue:@(JDVCellStateDead)] currentState];
                 
-                [_cell setNextStateWithNeighbors:_neigbors];
+                [_cell setNextState];
                 expect(_cell.nextState).to.equal(JDVCellStateDead);
             });
             
@@ -162,7 +161,7 @@ describe(@"JDVCell", ^{
                 [[[_mockCell4 stub] andReturnValue:@(JDVCellStateDead)] currentState];
                 [[[_mockCell5 stub] andReturnValue:@(JDVCellStateDead)] currentState];
                 
-                [_cell setNextStateWithNeighbors:_neigbors];
+                [_cell setNextState];
                 expect(_cell.nextState).to.equal(JDVCellStateAlive);
             });
             
@@ -173,7 +172,7 @@ describe(@"JDVCell", ^{
                 [[[_mockCell4 stub] andReturnValue:@(JDVCellStateAlive)] currentState];
                 [[[_mockCell5 stub] andReturnValue:@(JDVCellStateDead)] currentState];
                 
-                [_cell setNextStateWithNeighbors:_neigbors];
+                [_cell setNextState];
                 expect(_cell.nextState).to.equal(JDVCellStateDead);
             });
         });
@@ -215,21 +214,17 @@ describe(@"JDVCell", ^{
         });
     });
     
-    describe(@"when the game starts", ^{
-        it(@"disables user interaction", ^{
-            [_cell gameDidStart];
-            expect(_cell.userInteractionEnabled).to.beFalsy();
-        });
+    it(@"disables user interaction when the game starts", ^{
+        [_cell gameDidStart];
+        expect(_cell.userInteractionEnabled).to.beFalsy();
     });
     
-    describe(@"when the game stops", ^{
-        it(@"enables user interaction", ^{
-            [_cell gameDidStop];
-            expect(_cell.userInteractionEnabled).to.beTruthy();
-        });
+    it(@"enables user interaction when the game stops", ^{
+        [_cell gameDidStop];
+        expect(_cell.userInteractionEnabled).to.beTruthy();
     });
-    
-    context(@"game is not yet started", ^{
+
+        context(@"game is not yet started", ^{
         describe(@"when the game starts", ^{
             it(@"disables user interaction", ^{
                 [_cell gameDidStart];

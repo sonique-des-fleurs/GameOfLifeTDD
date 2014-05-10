@@ -29,10 +29,9 @@ NSString *const JDVCellColumn = @"column";
     return [self initWithBoardLocation:@{JDVCellRow: @0, JDVCellColumn:@0}];
 }
 
-- (void)setNextStateWithNeighbors:(NSSet *)neighbors
+- (void)setNextState
 {
-    NSInteger numberOfLivingNeighbors = [self numberOfLivingCells:neighbors];
-    [self setNextStateGivenNumberOfLivingNeighbors:numberOfLivingNeighbors];
+    [self setNextStateGivenNumberOfLivingNeighbors:[self numberOfLivingNeighbors]];
 }
 
 - (void)reset
@@ -76,16 +75,14 @@ NSString *const JDVCellColumn = @"column";
 
 #pragma mark - private methods
 
-- (NSInteger)numberOfLivingCells:(NSSet *)cells
+- (NSInteger)numberOfLivingNeighbors
 {
     NSInteger numberOfLivingCells = 0;
-    
-    for (JDVCell *cell in cells) {
+    for (JDVCell *cell in self.neighbors) {
         if (cell.currentState == JDVCellStateAlive) {
             numberOfLivingCells++;
         }
     }
-    
     return numberOfLivingCells;
 }
 

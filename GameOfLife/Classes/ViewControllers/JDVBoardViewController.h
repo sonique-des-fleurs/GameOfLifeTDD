@@ -25,5 +25,6 @@ extern NSString *const JDVBoardCellsPerSideKey;
 - (void)update:(NSTimer *)timer;
 - (void)gameDidStart;
 - (void)gameDidStop;
+- (void)setNeighborsForCells;
 
 @end

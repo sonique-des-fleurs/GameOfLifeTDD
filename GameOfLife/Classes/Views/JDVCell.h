@@ -19,13 +19,14 @@ typedef enum {
 @property (strong, nonatomic) NSDictionary *boardLocation;
 @property (assign, nonatomic) JDVCellState currentState;
 @property (assign, nonatomic) JDVCellState nextState;
+@property (strong, nonatomic) NSSet *neighbors;
 
 - (id)initWithBoardLocation:(NSDictionary *)location;
-- (void)setNextStateWithNeighbors:(NSSet *)neighbors;
 - (void)reset;
 - (void)toggleState:(id)sender;
 - (void)gameDidStart;
 - (void)gameDidStop;
+- (void)setNextState;
 - (void)advanceToNextState;
 
 @end

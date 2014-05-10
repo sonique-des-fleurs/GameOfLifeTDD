@@ -18,7 +18,6 @@
     self.window.rootViewController = [self appRootVC];
     [self.window makeKeyWindow];
     self.window.hidden = FALSE;
-    
     return YES;
 }
 

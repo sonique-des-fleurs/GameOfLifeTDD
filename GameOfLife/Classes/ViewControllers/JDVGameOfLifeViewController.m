@@ -8,7 +8,7 @@
 
 #import "JDVGameOfLifeViewController.h"
 
-NSTimeInterval const JDVGameOfLifeTimerInterval = 0.2;
+NSTimeInterval const JDVGameOfLifeTimerInterval = 0.1;
 static CGFloat const kJDVBoardSize = 728;
 static CGFloat const kJDVLineSize = 2;
 static NSInteger const kJDVCellsPerSide = 24;
