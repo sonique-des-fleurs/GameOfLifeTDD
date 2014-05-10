@@ -9,21 +9,35 @@
 #import "JDVBoardViewController.h"
 #import "JDVCell.h"
 
-CGFloat const kJDVBoardSize = 728;
-CGFloat const kJDVLineSize = 2;
-NSInteger const kJDVCellsPerSide = 24;
+static CGFloat const kJDVBoardSize = 728;
+static CGFloat const kJDVLineSize = 2;
+static NSInteger const kJDVCellsPerSide = 24;
 
-@interface JDVBoardViewController ()
-
-@end
+NSString *const JDVBoardColorKey = @"boardColor";
+NSString *const JDVBoardSizeKey = @"boardSize";
+NSString *const JDVBoardLineSizeKey = @"lineSize";
+NSString *const JDVBoardCellsPerSideKey = @"cellsPerSide";
 
 @implementation JDVBoardViewController
+
+- (id)initWithBoardProperties:(NSDictionary *)boardProperties
+{
+    self = [super init];
+    if (self) {
+        _boardColor = boardProperties[JDVBoardColorKey];
+        _boardSize = [boardProperties[JDVBoardSizeKey] floatValue];
+        _lineSize = [boardProperties[JDVBoardLineSizeKey] floatValue];
+        _cellsPerSide = [boardProperties[JDVBoardCellsPerSideKey] integerValue];
+        _cells = @[];
+    }
+    return self;
+}
 
 - (id)initWithCellsPerSide:(NSInteger)numberOfCellsPerSide
 {
     self = [super init];
     if (self) {
-        _numberOfCellsPerSide = numberOfCellsPerSide;
+        _cellsPerSide = numberOfCellsPerSide;
         _boardColor = [UIColor greenColor];
         _boardSize = kJDVBoardSize;
         _lineSize = kJDVLineSize;
@@ -34,7 +48,7 @@ NSInteger const kJDVCellsPerSide = 24;
 
 - (id)init
 {
-    return [self initWithCellsPerSide:kJDVCellsPerSide];
+    return [self initWithBoardProperties:[self defaultBoardProperties]];
 }
 
 - (void)viewDidLoad
@@ -79,11 +93,19 @@ NSInteger const kJDVCellsPerSide = 24;
 
 #pragma mark - private methods
 
+- (NSDictionary *)defaultBoardProperties
+{
+    return @{JDVBoardColorKey: [UIColor blueColor],
+             JDVBoardSizeKey: @11.0,
+             JDVBoardLineSizeKey: @3.0,
+             JDVBoardCellsPerSideKey: @2};
+}
+
 - (void)initializeCells
 {
     NSMutableArray *cells = [NSMutableArray array];
-    for (int row = 0; row < self.numberOfCellsPerSide; row++) {
-        for (int column = 0; column < self.numberOfCellsPerSide; column++) {
+    for (int row = 0; row < self.cellsPerSide; row++) {
+        for (int column = 0; column < self.cellsPerSide; column++) {
             JDVCell *cell = [[JDVCell alloc] initWithBoardLocation:@{JDVCellRow:@(row + 1), JDVCellColumn:@(column + 1)}];
             [cells addObject:cell];
         };
@@ -93,7 +115,7 @@ NSInteger const kJDVCellsPerSide = 24;
 
 - (CGFloat)calculatedCellWidth
 {
-    return (self.boardSize - ((self.numberOfCellsPerSide + 1) * self.lineSize)) / self.numberOfCellsPerSide;
+    return (self.boardSize - ((self.cellsPerSide + 1) * self.lineSize)) / self.cellsPerSide;
 }
 
 - (void)setFrameForCell:(JDVCell *)cell

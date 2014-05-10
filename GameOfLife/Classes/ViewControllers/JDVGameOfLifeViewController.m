@@ -9,10 +9,9 @@
 #import "JDVGameOfLifeViewController.h"
 
 NSTimeInterval const JDVGameOfLifeTimerInterval = 0.2;
-
-@interface JDVGameOfLifeViewController ()
-
-@end
+static CGFloat const kJDVBoardSize = 728;
+static CGFloat const kJDVLineSize = 2;
+static NSInteger const kJDVCellsPerSide = 24;
 
 @implementation JDVGameOfLifeViewController
 
@@ -20,7 +19,10 @@ NSTimeInterval const JDVGameOfLifeTimerInterval = 0.2;
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        _boardVC = [[JDVBoardViewController alloc] init];
+        _boardVC = [[JDVBoardViewController alloc] initWithBoardProperties:@{JDVBoardColorKey: [UIColor greenColor],
+                                                                             JDVBoardSizeKey: @(kJDVBoardSize),
+                                                                             JDVBoardLineSizeKey: @(kJDVLineSize),
+                                                                             JDVBoardCellsPerSideKey: @(kJDVCellsPerSide)}];
         _gameIsRunning = FALSE;
     }
     return self;
@@ -30,7 +32,7 @@ NSTimeInterval const JDVGameOfLifeTimerInterval = 0.2;
 {
     [super viewDidLoad];
     
-    self.boardVC.view.frame = CGRectMake(20, 60, self.boardVC.boardSize, self.boardVC.boardSize);
+    self.boardVC.view.frame = CGRectMake(20, 60, kJDVBoardSize, kJDVBoardSize);
     [self.view addSubview:self.boardVC.view];
 }
 
